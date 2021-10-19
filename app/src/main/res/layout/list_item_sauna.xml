@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/saunaIMG"
+            android:layout_width="527dp"
+            android:layout_height="194dp"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:scaleType="fitStart" />
+
+        <Button
+            android:id="@+id/btnBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_rounded"
+            android:fontFamily="@font/allerta"
+            android:text="Book"
+            tools:layout_editor_absoluteX="-38dp"
+            tools:layout_editor_absoluteY="372dp" />
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

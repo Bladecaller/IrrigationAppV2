@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.bottomnavigation.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:layout_gravity="bottom"
+    android:background="@color/transparent"
+    android:theme="@style/AppTheme"
+    app:itemBackground="@color/transparent"
+    app:itemIconTint="@drawable/selector"
+    app:itemTextColor="@drawable/selector"
+    app:elevation="0dp"
+    app:itemRippleColor="@color/white"
+    >
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:tabBackground="@color/transparent"
+        app:tabIconTint="@drawable/selector"
+        app:tabIndicatorColor="@color/accent1"
+        app:tabIndicatorGravity="bottom" />
+</com.google.android.material.bottomnavigation.BottomNavigationView>

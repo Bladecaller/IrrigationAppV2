@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/icon_home_white_large"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_sauna"
+        android:icon="@drawable/icon_sauna_filled_white"
+        android:title="Saunas" />
+
+    <item
+        android:id="@+id/navigation_sub"
+        android:icon="@drawable/icon_subcription"
+        android:title="Subscribtion" />
+
+    <item
+        android:id="@+id/navigation_users"
+        android:icon="@drawable/icon_user_white_large"
+        android:title="Users" />
+</menu>

@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.example.sep4_android"
+        minSdkVersion 18
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+
+dependencies {
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.google.code.gson:gson:2.8.7'
+    testImplementation 'com.jraska.livedata:testing:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+    androidTestImplementation "org.mockito:mockito-android:2.24.5"
+
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit: 2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    testImplementation 'junit:junit:4.+'
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:okhttp")
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+
+
+
+    // Dependencies for working with Architecture components
+    // You'll probably have to update the version numbers in build.gradle (Project)
+
+    // Room components
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
+
+    // UI
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.synnapps:carouselview:0.1.5'
+
+
+
+    // Testing
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
+}

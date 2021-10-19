@@ -1,0 +1,2 @@
+rootProject.name = "SEP4_Android"
+include ':app'

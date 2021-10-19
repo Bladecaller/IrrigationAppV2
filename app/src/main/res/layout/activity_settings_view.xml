@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgDark"
+    tools:context="view.activity.owner.SettingsViewBo">
+
+
+    <Button
+        android:id="@+id/thresholdBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_rounded"
+        android:text="Set Threshold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tCardHum"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tCardCO2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="@color/accent3"
+        app:cardCornerRadius="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarSettings">
+
+
+        <TextView
+            android:id="@+id/tTxtCO2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/allerta"
+            android:text="CO2 "
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteY="323dp" />
+
+        <EditText
+            android:id="@+id/thresholdValCO2"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:inputType="number" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tCardTemp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="@color/accent3"
+        app:cardCornerRadius="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tCardCO2">
+
+
+        <TextView
+            android:id="@+id/tTxtTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/allerta"
+            android:text="Temperature"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteY="323dp" />
+
+        <EditText
+            android:id="@+id/thresholdValTemp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:inputType="number" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tCardHum"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="@color/accent3"
+        app:cardCornerRadius="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tCardTemp">
+
+
+        <TextView
+            android:id="@+id/tTxtHum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/allerta"
+            android:text="Humidity"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteY="323dp" />
+
+        <EditText
+            android:id="@+id/thresholdValHum"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:inputType="number" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <include
+        android:id="@+id/toolbarSettings"
+        layout="@layout/toolbar">
+
+    </include>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
