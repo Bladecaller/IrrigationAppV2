@@ -11,17 +11,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import model.room.dao.AccountDao;
+import model.room.dao.ClimateDao;
+import model.room.dao.HumidityDao;
+import model.room.dao.PrecipitationDao;
+import model.room.dao.TemperatureDao;
 import model.room.entity.Account;
+import model.room.entity.Climate;
+import model.room.entity.Humidity;
+import model.room.entity.Precipitation;
+import model.room.entity.Temperature;
 
 
-@Database(entities = {Account.class,  },//Day.class, Schedule.class, Plant.class, Climate.class},
+@Database(entities = {Account.class, Temperature.class, Humidity.class, Precipitation.class},//Day.class, Schedule.class, Plant.class, },
         version = 1, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class MyRoomDatabase extends RoomDatabase {
-    //public abstract DayDao accountsDao();
-    //public abstract ScheduleDao saunaDao();
-    //public abstract ClimateDao dataPointDao();
-    //public abstract PlantDao reservationDao();
+
+    public abstract TemperatureDao temperatureDao();
+    public abstract HumidityDao humidityDao();
+    public abstract PrecipitationDao precipitationDao();
     public abstract AccountDao currentAccountDao();
 
     private static volatile MyRoomDatabase INSTANCE;

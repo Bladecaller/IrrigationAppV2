@@ -1,6 +1,6 @@
 package model.room.repositories;
 
-import android.util.Log;
+import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
@@ -9,6 +9,7 @@ import java.util.List;
 import api.MyRetrofit;
 import model.room.dao.AccountDao;
 import model.room.entity.Account;
+import model.room.entity.apiDataModelClimate.Root;
 import model.room.roomdatabase.MyRoomDatabase;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,44 +20,11 @@ public class AccountRepo {
     private AccountDao currentAccountDao;
 
 
-    public AccountRepo( ){
+    public AccountRepo(Application application){
         retrofit = new MyRetrofit();
-        //MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
-        //currentAccountDao = db.currentAccountDao();
+        MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
+        currentAccountDao = db.currentAccountDao();
 
-    }
-
-    public void getTemp(String url){
-
-        Call<String> call = retrofit.api.getTemp(url);
-        Log.d("BODY","FAKE");
-
-        System.out.println("SUCCESS IS IN THIS BODY FAKE");
-        call.enqueue(new Callback<String>(){
-            @Override
-            public void onResponse (Call <String> call, Response<String> response){
-                Log.d("BODY","FAKE2");
-
-                System.out.println("SUCCESS IS IN THIS BODY FAKE2");
-                System.out.print(response.message());
-                Log.d("ANSWER",response.message());
-                Log.d("BODY",response.body());
-
-                System.out.println("SUCCESS IS IN THIS BODY " + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                t.printStackTrace();
-
-                Log.d("BODY","FAKE3");
-
-                System.out.println("SUCCESS IS IN THIS BODY FAKE3");
-                System.out.println("Failed at Login");
-                System.out.println(t.getMessage());
-            }
-
-        });
     }
 
     public void accountInsert(Account account) {
