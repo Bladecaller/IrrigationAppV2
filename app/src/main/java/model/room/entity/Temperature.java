@@ -18,7 +18,7 @@ public class Temperature implements Serializable {
 
     public Temperature(int ID, Double Value) {
         this.ID = ID;
-        Value = Value;
+        this.Value = Value;
     }
 
     public int getID() {

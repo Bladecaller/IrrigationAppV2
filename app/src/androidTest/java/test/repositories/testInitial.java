@@ -79,15 +79,15 @@ public class testInitial {
     @Test
     public void populateAccCustomerAPI() throws InterruptedException {
         repository.getHumidityList().observeForever(observer);
-        //repository2.getTemperatureList().observeForever(observer2);
-        //repository3.getPrecipitationList().observeForever(observer3);
+        repository2.getTemperatureList().observeForever(observer2);
+        repository3.getPrecipitationList().observeForever(observer3);
 
 
         repository.getHumidity("Horsens");
         Thread.sleep(30000);
         Assert.assertEquals(false,list.isEmpty());
-/*
-        repository2.getTemperature("Horsens");
+
+        repository2.getTemperature("Aarhus");
         Thread.sleep(20000);
         Assert.assertEquals(false,list2.isEmpty());
 
@@ -96,12 +96,14 @@ public class testInitial {
         Assert.assertEquals(false,list3.isEmpty());
 
 
- */
+
         System.out.println("WORKING? final "+list.get(0).getValue());
         System.out.println("WORKING? final "+list.get(0).getID());
 
-        //Log.d("WORKING?",list2.get(0).getValue().toString());
-        //Log.d("WORKING?",list3.get(0).getValue());
+        System.out.println("WORKING? final "+list3.get(0).getID());
+        System.out.println("WORKING????????final "+list3.get(0).getValue());
+       Log.d("WORKING!!!!!!!!!!",list2.get(0).getValue().toString());
+       // Log.d("WORKING??????????",list3.get(0).getValue());
 
 
     }

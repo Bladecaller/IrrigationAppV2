@@ -30,18 +30,19 @@ public class HumidityRepo {
 
     public void getHumidity(String location){
         String locationCode = "0";
-        if(location == "Horsens"){
-            locationCode = "06102";
+        switch (location) {
+            case "Horsens":
+                locationCode = "06102";
+                break;
+            case "Aarhus":
+                locationCode = "06074";
+                break;
         }
         Call<Root> call = retrofit.api.getClimate("metObs/collections/observation/items?stationId="+locationCode+"&parameterId=humidity_past1h&period=latest&api-key=14cc5e73-90a5-463b-a221-68e503b2a396");
         call.enqueue(new Callback<Root>(){
             @Override
             public void onResponse (Call <Root> call, Response<Root> response){
-                //double value = response.body().features.get(0).properties.value;
-                //System.out.println("Value is :"+ response.body().features.get(0).properties.value);
-                //emptyHumidityRepo();
-                Humidity hum = new Humidity(9,response.body().features.get(0).properties.value);
-                //hum.setValue(value);
+                Humidity hum = new Humidity(0,response.body().features.get(0).properties.value);
                 insert(hum);
             }
             @Override

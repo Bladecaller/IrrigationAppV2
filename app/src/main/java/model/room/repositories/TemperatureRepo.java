@@ -29,8 +29,11 @@ public class TemperatureRepo {
 
     public void getTemperature(String location){
         String locationCode = "0";
-        if(location == "Horsens"){
-            locationCode = "06102";
+       switch (location){
+           case "Horsens": locationCode="06102";
+           break;
+           case "Aarhus" : locationCode="06074";
+           break;
         }
         //Temperature----------------------------------------------------------------------------------------------------------------------
 

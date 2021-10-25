@@ -18,7 +18,7 @@ public class Humidity implements Serializable {
 
     public Humidity(int ID, double Value) {
         this.ID = ID;
-        Value = Value;
+        this.Value = Value;
     }
 
     public int getID() {

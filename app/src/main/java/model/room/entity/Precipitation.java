@@ -18,7 +18,7 @@ public class Precipitation implements Serializable {
 
     public Precipitation(int ID, String Value) {
         this.ID = ID;
-        Value = Value;
+        this.Value = Value;
     }
 
     public int getID() {
