@@ -70,17 +70,6 @@
             android:layout_height="50dp"
             app:srcCompat="@drawable/icon_sauna" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="187dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/staravenue"
-            android:gravity="center"
-            android:text="HOTBOX"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="48sp" />
     </LinearLayout>
 
     <Button
@@ -94,5 +83,22 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwText" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="238dp"
+        android:layout_height="138dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/staravenue"
+        android:gravity="center"
+        android:text="Landsomething"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
