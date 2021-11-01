@@ -3,6 +3,7 @@ package com.example.sep4_android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,6 +11,7 @@ import android.os.StrictMode.ThreadPolicy;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,8 +33,10 @@ import android.widget.Toast;
 public class TestDBS1 extends AppCompatActivity {
 
     public Button run;
-    public TextView message;
+    public Button regButton;
     public ProgressBar progressBar;
+    public EditText username;
+    public EditText password;
 
     public Connection con;
     @Override
@@ -41,10 +45,21 @@ public class TestDBS1 extends AppCompatActivity {
         setContentView(R.layout.activity_test_dbs1);
 
         run = (Button) findViewById(R.id.logInButton1);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+        regButton = (Button) findViewById(R.id.regButton);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        username = (EditText) findViewById(R.id.usernameText);
+        password = (EditText) findViewById(R.id.pwText);
 
-        run.setOnClickListener(new View.OnClickListener()
-        {
+
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDBS1.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CheckLogin checkLogin = new CheckLogin();
@@ -52,29 +67,7 @@ public class TestDBS1 extends AppCompatActivity {
             }
         });
     }
-    public class CheckLogin extends AsyncTask<String,String,String>
-    {
-
-
-            String z ="";
-            Boolean isSuccesss = false;
-            String name1 = "";
-
-            protected void onPreExecute()
-            {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-
-            protected void onPostExecute(String r)
-            {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(TestDBS1.this, r, Toast.LENGTH_LONG).show();
-                if(isSuccesss)
-                {
-                    message = (TextView) findViewById(R.id.textView12);
-                    message.setText(name1);
-                }
-            }
+            /*
             protected String doInBackground(String... params)
             {
                 try{
@@ -93,7 +86,7 @@ public class TestDBS1 extends AppCompatActivity {
                         create.executeUpdate(sql1);
                         System.out.println("Inserted records into the table...");
                         */
-
+/*
                         String query = "select * from Users WHERE id = 2";
                         Statement statement = con.createStatement();
                         ResultSet rs = statement.executeQuery(query);
@@ -121,8 +114,76 @@ public class TestDBS1 extends AppCompatActivity {
                 return z;
             }
         }
+
+ */
+
+            public class CheckLogin extends AsyncTask<String, String, String>{
+
+                String z = null;
+                Boolean isSuccess = false;
+
+
+                @Override
+                protected void onPreExecute() {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                protected void onPostExecute(String s) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                protected String doInBackground(String... strings) {
+                    con = connectionClass(ConnectionClass.un.toString(),ConnectionClass.pass.toString(),ConnectionClass.db.toString(),ConnectionClass.ip.toString());
+                    if(con == null){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(TestDBS1.this,"Check Internet Connection",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        z = "On Internet Connection";
+                    }
+                    else {
+                        try {
+                            String sql = "SELECT * FROM Users WHERE username = '" + username.getText() + "' AND password = '" + password.getText() + "' ";
+                            Statement stmt = con.createStatement();
+                            ResultSet rs = stmt.executeQuery(sql);
+
+                            if (rs.next()) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(TestDBS1.this, "Login Success", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                z = "Success";
+
+                                Intent intent = new Intent(TestDBS1.this, Main123Activity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(TestDBS1.this, "Check email or password", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                                username.setText("");
+                                password.setText("");
+                            }
+                        } catch (Exception e) {
+                            isSuccess = false;
+                            Log.e("SQL Error : ", e.getMessage());
+                        }
+                    }
+                    return z;
+                }
+            }
         @SuppressLint("NewApi")
-        public Connection ConnectionClass()
+        public Connection connectionClass(String user, String password, String database, String server)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -147,4 +208,5 @@ public class TestDBS1 extends AppCompatActivity {
             }
             return connection;
         }
-    }
+        }
+
