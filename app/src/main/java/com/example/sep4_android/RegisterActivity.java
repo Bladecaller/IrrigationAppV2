@@ -8,7 +8,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -56,13 +59,22 @@ public class RegisterActivity extends AppCompatActivity {
                 registeruser.execute("");
             }
         });
+
     }
 
     public class Registeruser extends AsyncTask<String, String , String>{
 
         String z = "";
-        Boolean isSuccess = false;
+        Boolean isSuccess = true;
 
+        boolean isEmpty(EditText text) {
+            CharSequence str = text.getText().toString();
+            return TextUtils.isEmpty(str);
+        }
+        boolean isEmail(EditText text) {
+            CharSequence email = text.getText().toString();
+            return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        }
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
@@ -78,24 +90,41 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            try{
-                con = connectionClass(ConnectionClass.un.toString(),ConnectionClass.pass.toString(),ConnectionClass.db.toString(),ConnectionClass.ip.toString());
-                if(con == null){
-                    z = "Check Your Internet Connection";
-                }
-                else{
-                    Statement statement=con.createStatement();
-                    String sql = "INSERT INTO Users (email,username,password) VALUES ('"+email.getText()+"','"+username.getText()+"','"+password.getText()+"')";
-                    statement.executeUpdate(sql);
+
+                try {
+                    con = connectionClass(ConnectionClass.un.toString(), ConnectionClass.pass.toString(), ConnectionClass.db.toString(), ConnectionClass.ip.toString());
+
+                    if (!isEmail(email)) {
+                        runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Email is not valid", Toast.LENGTH_LONG).show());
+                        throw new IOException("Email is not validdd");
+                    }
+                    if (isEmpty(username)) {
+                        runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Enter username", Toast.LENGTH_LONG).show());
+                        throw new IOException("username is not validdd");
+                    }
+                    if (isEmpty(password)) {
+                        runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show());
+                        throw new IOException("password is not validdd");
+                    }
+                    if (con == null) {
+                        z = "Check Your Internet Connection";
+                        throw new IOException("Email is not validdd");
+                    } else {
+                        Statement statement = con.createStatement();
+                        String sql = "INSERT INTO Users (email,username,password) VALUES ('" + email.getText() + "','" + username.getText() + "','" + password.getText() + "')";
+                        statement.executeUpdate(sql);
+                    }
+                } catch (SQLException sqlException) {
+                    isSuccess = false;
+                    z = sqlException.getMessage();
+                    Log.e("Database : ", sqlException.getMessage());
+                } catch (Exception e) {
+                    isSuccess = false;
+                    z = e.getMessage();
                 }
 
-            }catch (Exception e){
-                isSuccess = false;
-                z = e.getMessage();
+                return z;
             }
-
-            return z;
-        }
     }
 
     @SuppressLint("NewApi")
