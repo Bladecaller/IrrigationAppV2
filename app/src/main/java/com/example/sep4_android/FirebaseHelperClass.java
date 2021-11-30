@@ -1,25 +1,23 @@
 package com.example.sep4_android;
 
-import java.util.Date;
 
 public class FirebaseHelperClass {
 
     String username;
-
-
     String plantName;
-    String harvest;
     String yards;
     String waterPerYards;
     String startingDate;
+    String harvest;
 
-    public FirebaseHelperClass(String username, String plantName, String harvest, String yards, String waterPerYards, String startingDate) {
+
+    public FirebaseHelperClass(String username, String plantName, String yards, String waterPerYards, String startingDate, String harvest) {
         this.username = username;
         this.plantName = plantName;
-        this.harvest = harvest;
         this.yards = yards;
         this.waterPerYards = waterPerYards;
         this.startingDate = startingDate;
+        this.harvest = harvest;
     }
     public FirebaseHelperClass() {
     }
