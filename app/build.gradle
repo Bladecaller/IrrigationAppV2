@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -12,6 +13,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,9 +36,10 @@ android {
 
 
 dependencies {
-
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.google.firebase:firebase-database:19.2.1'
     testImplementation 'com.jraska.livedata:testing:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     testImplementation 'androidx.arch.core:core-testing:2.0.1'
@@ -83,6 +86,8 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.synnapps:carouselview:0.1.5'
+
+
 
 
 

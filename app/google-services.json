@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "9044160433",
+    "project_id": "bprcalendarinfo",
+    "storage_bucket": "bprcalendarinfo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9044160433:android:4c7d455bb4e904f49b1790",
+        "android_client_info": {
+          "package_name": "com.example.sep4_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9044160433-i0pesi98vndmuhoma5ure50l1gh7v9hh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJZ3yQimBQw0iJvCEZbbmtaF1HQzCcrAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9044160433-i0pesi98vndmuhoma5ure50l1gh7v9hh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

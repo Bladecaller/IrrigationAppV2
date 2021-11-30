@@ -4,30 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.os.StrictMode.ThreadPolicy;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.example.sep4_android.R;
-
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import android.os.Bundle;
 import android.widget.Toast;
 
 public class TestDBS1 extends AppCompatActivity {
@@ -44,11 +34,12 @@ public class TestDBS1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_dbs1);
 
-        run = (Button) findViewById(R.id.logInButton1);
-        regButton = (Button) findViewById(R.id.regButton);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        username = (EditText) findViewById(R.id.usernameText);
-        password = (EditText) findViewById(R.id.pwText);
+        run = findViewById(R.id.logInButton1);
+        regButton = findViewById(R.id.regButton);
+        progressBar = findViewById(R.id.progressBar);
+        username = findViewById(R.id.usernameText);
+        password = findViewById(R.id.pwText);
+
 
 
         regButton.setOnClickListener(new View.OnClickListener() {
@@ -156,13 +147,22 @@ public class TestDBS1 extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         Toast.makeText(TestDBS1.this, "Login Success", Toast.LENGTH_LONG).show();
+
+                                        Intent i = new Intent(getApplicationContext(), Main123Activity.class);
+                                        i.putExtra("username", String.valueOf(username.getText()));
+                                        startActivity(i);
                                     }
+
                                 });
                                 z = "Success";
+
+
 
                                 Intent intent = new Intent(TestDBS1.this, Main123Activity.class);
                                 startActivity(intent);
                                 finish();
+
+
                             } else {
                                 runOnUiThread(new Runnable() {
                                     @Override
