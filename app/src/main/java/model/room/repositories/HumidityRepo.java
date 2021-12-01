@@ -20,6 +20,7 @@ import retrofit2.Response;
 public class HumidityRepo {
     private MyRetrofit retrofit;
     private HumidityDao Dao;
+    String locationCode = "0";
 
 
     public HumidityRepo(Application application){
@@ -29,7 +30,6 @@ public class HumidityRepo {
     }
 
     public void getHumidity(String location){
-        String locationCode = "0";
         switch (location) {
             case "Horsens":
                 locationCode = "06102";
@@ -579,13 +579,16 @@ public class HumidityRepo {
         call.enqueue(new Callback<Root>(){
             @Override
             public void onResponse (Call <Root> call, Response<Root> response){
-                Humidity hum = new Humidity(0,response.body().features.get(0).properties.value);
-                insert(hum);
+                if(!response.body().features.isEmpty()){
+                    Humidity hum = new Humidity(0,response.body().features.get(0).properties.value);
+                    insert(hum);
+                }else{
+                    insert(new Humidity(0,9999));
+                }
             }
             @Override
             public void onFailure(Call<Root> call, Throwable t) {
                 t.printStackTrace();
-                System.out.println("Failed at Login");
                 System.out.println(t.getMessage());
             }
         });

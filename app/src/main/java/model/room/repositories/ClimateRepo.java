@@ -28,7 +28,7 @@ public class ClimateRepo {
     }
 
     public void getClimate(String location) throws InterruptedException {
-        emptyClimateRepo();
+        //emptyClimateRepo();
         Climate climate = new Climate(0,null,null,null);
         String locationCode = "0";
         if(location == "Horsens"){
