@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main123Activity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <TextView
         android:id="@+id/username2"
         android:layout_width="96dp"
         android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="314dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="681dp"
         android:textSize="34sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
@@ -24,7 +32,11 @@
         style="@style/TextInput"
         android:layout_width="250dp"
         android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="580dp"
         android:ems="10"
         android:fontFamily="@font/allerta"
         android:hint="Plant"
@@ -33,16 +45,43 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     <EditText
-        android:id="@+id/yardsText"
+        android:id="@+id/wateringFrequencyText"
         style="@style/TextInput"
         android:layout_width="250dp"
         android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="71dp"
         android:layout_marginTop="120dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="508dp"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Yards"
+        android:hint="Watering Frequency"
         android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    <EditText
+        android:id="@+id/timeText"
+        style="@style/TextInput"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="436dp"
+        android:ems="10"
+        android:fontFamily="@font/allerta"
+        android:hint="Time"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,39 +92,61 @@
         style="@style/TextInput"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_alignTop="@+id/timeText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="83dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="353dp"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="WaterPerYards"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-    <EditText
-        android:id="@+id/dateeText"
-        style="@style/TextInput"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="280dp"
-        android:ems="10"
-        android:fontFamily="@font/allerta"
-        android:hint="Date"
-        android:inputType="datetime"
+        android:hint="waterPerYards"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <EditText
-        android:id="@+id/harvestText"
+        android:id="@+id/amountOfLandText"
         style="@style/TextInput"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="372dp"
+        android:layout_above="@+id/addDataButton"
+        android:layout_alignTop="@+id/waterPerYardsText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="123dp"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Harvest"
+        android:hint="Amount Of Land"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <EditText
+        android:id="@+id/harvestAfterMonthsText"
+        style="@style/TextInput"
+        android:layout_width="255dp"
+        android:layout_height="49dp"
+        android:layout_alignTop="@+id/waterPerYardsText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="168dp"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="186dp"
+        android:ems="10"
+        android:fontFamily="@font/allerta"
+        android:hint="Harvest After Months"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -94,13 +155,18 @@
 
 
 
-
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="632dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,20 +176,41 @@
 
     </LinearLayout>
 
+
     <Button
         android:id="@+id/addDataButton"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="69dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="102dp"
         android:background="@drawable/button_rounded"
+
         android:text="Add data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/harvestAfterMonthsText" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation_new"
+        android:layout_marginBottom="0dp" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@android:color/holo_green_light"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
+        app:menu="@menu/bottom_menu" />
 
-        app:layout_constraintTop_toBottomOf="@+id/harvestText" />
+</RelativeLayout>
 
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
