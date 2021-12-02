@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package firebase_sql_helper_classes;
 
 public class ConnectionClass {
     public static String ip =""; // SQL Server IP Address

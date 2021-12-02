@@ -24,7 +24,8 @@ public class AccountRepoViewModel extends AndroidViewModel {
     public void addAccount(Account acc){
         accountRepo.accountInsert(acc);
     }
-    public LiveData<List<Account>> getCurrentAccount(){
-        return accountRepo.getCurrentAccountList();
+
+    public LiveData<Account> getCurrentAccount(){
+        return accountRepo.getCurrentAccount();
     }
 }

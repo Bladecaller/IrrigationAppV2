@@ -29,6 +29,7 @@ public class AccountRepo {
 
     public void accountInsert(Account account) {
         MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+            emptyRepo();
             currentAccountDao.insertAccount(account);
         });
     }
@@ -42,8 +43,8 @@ public class AccountRepo {
     }
 
     // return a list of all accounts to the viewmodel
-    public LiveData<List<Account>> getCurrentAccountList(){
-        return currentAccountDao.getCurrentAccountList();
+    public LiveData<Account> getCurrentAccount(){
+        return currentAccountDao.getCurrentAccount();
     }
 
 }

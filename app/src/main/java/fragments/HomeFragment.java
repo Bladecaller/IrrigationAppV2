@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sep4_android.FirebaseHelperClass;
+import firebase_sql_helper_classes.FirebaseHelperClass;
 import com.example.sep4_android.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

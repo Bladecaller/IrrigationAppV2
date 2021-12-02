@@ -2,33 +2,24 @@ package com.example.sep4_android;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import firebase_sql_helper_classes.FirebaseHelperClass;
+import firebase_sql_helper_classes.UserInfoHelperClass;
 
-import fragments.HomeFragment;
-import fragments.RandomFragment;
-import fragments.ReportFragment;
-
-public class Main123Activity extends AppCompatActivity {
+public class AddPlantActivity extends AppCompatActivity {
     public TextView usernameDisplay;
     public EditText plantInfo,wateringFrequencyInfo, timeInfo, yardsInfo, waterPerYardsInfo, amountOfLandInfo, harvestAfterMonthsInfo ;
     public Button addDataBtn;
@@ -101,7 +92,7 @@ public class Main123Activity extends AppCompatActivity {
                 //UserInfo helps with setting the values for the user
                 //Both of them need to go through some nodes before creating the set
                 FirebaseHelperClass plantsInfo = new FirebaseHelperClass(wateringFrequency, time, waterPerYards, amountOfLand, harvestAfterMonths);
-                 UserInfoHelperClass userInfo = new UserInfoHelperClass(locationTest, luminosityLocationTest, electricityLocationTest);
+                UserInfoHelperClass userInfo = new UserInfoHelperClass(locationTest, luminosityLocationTest, electricityLocationTest);
                 reference.child(username).child("userInfo").setValue(userInfo);
                 reference.child(username).child("plantsInfo").child(plantName).setValue(plantsInfo);
 

@@ -2,26 +2,32 @@ package com.example.sep4_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
+
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.ArrayList;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
 import java.util.List;
 
 import model.room.entity.Account;
-import model.room.entity.Climate;
 import model.room.entity.Humidity;
 import model.room.entity.Precipitation;
 import model.room.entity.Temperature;
 import viewmodel.AccountRepoViewModel;
-import viewmodel.ClimateViewModel;
 import viewmodel.HumidityViewModel;
 import viewmodel.PrecipitationViewModel;
 import viewmodel.TemperatureViewModel;
@@ -29,15 +35,16 @@ import viewmodel.TemperatureViewModel;
 public class HomeActivity extends AppCompatActivity {
     private HumidityViewModel humidityViewModel;
     private TemperatureViewModel temperatureViewModel;
-    private AccountRepoViewModel accountRepoViewModel;
     private PrecipitationViewModel precipitationViewModel;
-    private String location;
+    private AccountRepoViewModel accountVM;
+    private Account acc;
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
 
     private TextView humidityDisplay;
     private TextView temperatureDisplay;
     private TextView precipitationDisplay;
-
-    private List<Account> account;
+    private String username, location;
 
     private Button settingsButton;
 
@@ -49,21 +56,48 @@ public class HomeActivity extends AppCompatActivity {
         precipitationDisplay = findViewById(R.id.precipitationDisplay);
         temperatureDisplay = findViewById(R.id.temperatureDisplay);
         settingsButton = findViewById(R.id.settings_home);
-        account = new ArrayList<>();
 
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null && extras.containsKey("username")) {
+            username = extras.getString("username");
+            acc = new Account(9999,username);
+            System.out.println("ACC IS NOT NULL");
+        }
+        //System.out.println("Username 1 = " + acc.getUsername());
+
+        rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
+        reference = rootNode.getReference("users");
 
         humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
-        accountRepoViewModel = new ViewModelProvider(this).get(AccountRepoViewModel.class);
-
-        if(account.isEmpty()){
-            location = "Horsens";
+        accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
+        if(acc != null){
+            accountVM.addAccount(acc);
+            System.out.println("CALLED FOR ACCOUNT ADDITION");
         }
-        accountRepoViewModel.getCurrentAccount();
-        //humidityViewModel.getHumidity(location);
-        //temperatureViewModel.getTemperature(location);
-        //precipitationViewModel.getPrecipitation(location);
+
+        //CODE THAT READS FROM FIREBASE
+        //GOING THROUGH EACH NODE TO GET THE VALUE IN LINE 87
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    System.out.println("Username is : "+ acc.getUsername());
+                    Object account = dataSnapshot.child(acc.getUsername()).child("userInfo").child("location").getValue();
+                    location = String.valueOf(account);
+                    System.out.println("VALUE IS HERE FirebaseLocation is :" + " "+location);
+                    humidityViewModel.getHumidity(location);
+                    temperatureViewModel.getTemperature(location);
+                    precipitationViewModel.getPrecipitation(location);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR IS HERE", databaseError.getMessage());
+            }
+        };
+        accountVM.getCurrentAccount();
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,15 +113,13 @@ public class HomeActivity extends AppCompatActivity {
             public void onChanged(List<Humidity> humidities) {
                 if(!humidities.isEmpty()){
                     humidityDisplay.setText("Humidity: "+String.valueOf(humidities.get(humidities.size()-1).getValue()));
+                    System.out.println("LOCATION IS:"+ location);
 
                 }else {
                     humidityDisplay.setText("Empty, calling for data");
-                    //humidityViewModel.getHumidity("Horsens");
                 }
             }
         });
-
-
         temperatureViewModel.getTemperature(location).observe(this, new Observer<List<Temperature>>() {
             @Override
             public void onChanged(List<Temperature> temperatures) {
@@ -96,7 +128,6 @@ public class HomeActivity extends AppCompatActivity {
 
                 }else {
                     temperatureDisplay.setText("Empty, calling for data");
-                    //temperatureViewModel.getTemperature("Horsens");
                 }
             }
         });
@@ -109,20 +140,15 @@ public class HomeActivity extends AppCompatActivity {
 
                 }else {
                     precipitationDisplay.setText("Empty, calling for data");
-                    //precipitationViewModel.getPrecipitation("Horsens");
                 }
             }
         });
-
-        accountRepoViewModel.getCurrentAccount().observe(this, new Observer<List<Account>>() {
+        accountVM.getCurrentAccount().observe(this, new Observer<Account>() {
             @Override
-            public void onChanged(List<Account> accounts) {
-                if(!accounts.isEmpty()){
-                    account = accounts;
-                    location = account.get(account.size()-1).getLocation();
-                    humidityViewModel.getHumidity(location);
-                    temperatureViewModel.getTemperature(location);
-                    precipitationViewModel.getPrecipitation(location);
+            public void onChanged(Account account) {
+                if(account != null){
+                    acc = account;
+                    reference.addListenerForSingleValueEvent(valueEventListener);
                 }
             }
         });

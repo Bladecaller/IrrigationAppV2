@@ -1,17 +1,13 @@
 package com.example.sep4_android;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,21 +19,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.mlkit.common.sdkinternal.SharedPrefManager;
+import firebase_sql_helper_classes.ConnectionClass;
+import model.room.entity.Account;
+import viewmodel.AccountRepoViewModel;
 
-import fragments.HomeFragment;
 
-
-public class TestDBS1 extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public Button run;
     public Button regButton;
     public ProgressBar progressBar;
     public EditText username;
     public EditText password;
+    public AccountRepoViewModel accountVM;
 
     public Connection con;
     @Override
@@ -51,12 +47,12 @@ public class TestDBS1 extends AppCompatActivity {
         username = findViewById(R.id.usernameText);
         password = findViewById(R.id.pwText);
 
-
+        accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TestDBS1.this, RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -141,11 +137,13 @@ public class TestDBS1 extends AppCompatActivity {
                 @Override
                 protected String doInBackground(String... strings) {
                     con = connectionClass(ConnectionClass.un.toString(),ConnectionClass.pass.toString(),ConnectionClass.db.toString(),ConnectionClass.ip.toString());
+                    //con = connectionClass(ConnectionClass.un.toString(),ConnectionClass.pass.toString(),ConnectionClass.db.toString(),ConnectionClass.ip.toString());
+                    System.out.println(con);
                     if(con == null){
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(TestDBS1.this,"Check Internet Connection",Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this,"Check Internet Connection",Toast.LENGTH_LONG).show();
                             }
                         });
                         z = "On Internet Connection";
@@ -160,12 +158,13 @@ public class TestDBS1 extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(TestDBS1.this, "Login Success", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
 
 
 
-                                        Intent i = new Intent(getApplicationContext(), Main123Activity.class);
+                                        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                                         i.putExtra("username", String.valueOf(username.getText()));
+                                        //accountVM.addAccount(new Account(9999,String.valueOf(username.getText())));
                                         startActivity(i);
                                     }
 
@@ -174,7 +173,7 @@ public class TestDBS1 extends AppCompatActivity {
 
 
 
-                                Intent intent = new Intent(TestDBS1.this, HomeActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();
 
@@ -183,7 +182,7 @@ public class TestDBS1 extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(TestDBS1.this, "Check email or password", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "Check email or password", Toast.LENGTH_LONG).show();
                                     }
                                 });
 
