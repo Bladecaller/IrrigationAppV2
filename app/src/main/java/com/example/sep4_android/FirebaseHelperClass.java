@@ -5,20 +5,23 @@ public class FirebaseHelperClass {
 
     String username;
     String plantName;
-    String yards;
-    String waterPerYards;
-    String startingDate;
-    String harvest;
+    int wateringFrequency;
+    String time;
+    double waterPerYards;
+    double amountOfLand;
+    double harvestAfterMonths;
 
 
-    public FirebaseHelperClass(String username, String plantName, String yards, String waterPerYards, String startingDate, String harvest) {
-        this.username = username;
+    public FirebaseHelperClass(int wateringFrequency, String time, double waterPerYards, double amountOfLand, double harvestAfterMonths) {
         this.plantName = plantName;
-        this.yards = yards;
+        this.wateringFrequency = wateringFrequency;
+        this.time = time;
         this.waterPerYards = waterPerYards;
-        this.startingDate = startingDate;
-        this.harvest = harvest;
+        this.amountOfLand = amountOfLand;
+        this.harvestAfterMonths = harvestAfterMonths;
     }
+
+
     public FirebaseHelperClass() {
     }
 
@@ -38,38 +41,44 @@ public class FirebaseHelperClass {
         this.plantName = plantName;
     }
 
-    public String getHarvest() {
-        return harvest;
+    public int getWateringFrequency() {
+        return wateringFrequency;
     }
 
-    public void setHarvest(String harvest) {
-        this.harvest = harvest;
+    public void setWateringFrequency(int wateringFrequency) {
+        this.wateringFrequency = wateringFrequency;
     }
 
-    public String getYards() {
-        return yards;
+    public String getTime() {
+        return time;
     }
 
-    public void setYards(String yards) {
-        this.yards = yards;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getWaterPerYards() {
+    public double getWaterPerYards() {
         return waterPerYards;
     }
 
-    public void setWaterPerYards(String waterPerYards) {
+    public void setWaterPerYards(double waterPerYards) {
         this.waterPerYards = waterPerYards;
     }
 
-    public String getStartingDate() {
-        return startingDate;
+    public double getAmountOfLand() {
+        return amountOfLand;
     }
 
-    public void setStartingDate(String startingDate) {
-        this.startingDate = startingDate;
+    public void setAmountOfLand(double amountOfLand) {
+        this.amountOfLand = amountOfLand;
     }
 
+    public double getHarvestAfterMonths() {
+        return harvestAfterMonths;
+    }
 
+    public void setHarvestAfterMonths(double harvestAfterMonths) {
+        this.harvestAfterMonths = harvestAfterMonths;
+    }
 
 }
