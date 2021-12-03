@@ -1,6 +1,8 @@
 package firebase_sql_helper_classes;
 
 
+import java.util.ArrayList;
+
 public class FirebaseHelperClass {
 
     String username;
@@ -10,6 +12,8 @@ public class FirebaseHelperClass {
     double waterPerYards;
     double amountOfLand;
     double harvestAfterMonths;
+
+    public static ArrayList<FirebaseHelperClass>plantsList = new ArrayList<>();
 
 
     public FirebaseHelperClass(int wateringFrequency, String time, double waterPerYards, double amountOfLand, double harvestAfterMonths) {

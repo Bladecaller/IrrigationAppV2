@@ -90,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(acc!=null && acc.getUsername() != "Default"){
+                if(!acc.getUsername().equals("Default")){
                     reference.child(acc.getUsername()).child("userInfo").child("location").setValue(spinner.getSelectedItem().toString());
                     System.out.println("Location set");
                     displayToast("Location is set");

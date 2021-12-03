@@ -16,6 +16,15 @@
         android:theme="@style/Theme.Design.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MainCalendarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EventEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WeeklyCalendarActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
@@ -28,12 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity">
-
-        </activity>
-        <activity android:name=".SettingsActivity">
-
-        </activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SettingsActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

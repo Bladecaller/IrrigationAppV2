@@ -33,8 +33,7 @@ public class AddPlantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main123);
 
-
-        usernameDisplay = findViewById(R.id.username2);
+       // usernameDisplay = findViewById(R.id.username2);
         plantInfo = findViewById(R.id.plantText);
         wateringFrequencyInfo = findViewById(R.id.wateringFrequencyText);
         timeInfo = findViewById(R.id.timeText);
@@ -51,6 +50,9 @@ public class AddPlantActivity extends AppCompatActivity {
 
             usernameDisplay.setText(username);
         }
+
+
+
         addDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +71,7 @@ public class AddPlantActivity extends AppCompatActivity {
                 String luminosityLocationTest = "ZONE 3";
 
                 //CODE THAT READS FROM FIREBASE
-                //GOING THROUGH EACH NODE TO GET THE VALUE IN LINE 87
+                //GOING THROUGH EACH NODE TO GET THE VALUE
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
