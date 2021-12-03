@@ -29,7 +29,7 @@ public class AccountRepo {
 
     public void accountInsert(Account account) {
         MyRoomDatabase.databaseWriteExecutor.execute(() -> {
-            emptyRepo();
+            //emptyRepo();
             currentAccountDao.insertAccount(account);
         });
     }

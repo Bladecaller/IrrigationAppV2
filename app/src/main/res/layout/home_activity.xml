@@ -40,6 +40,22 @@
         app:layout_constraintVertical_bias="0.234" />
 
     <TextView
+        android:id="@+id/electricityPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:shadowColor="#FFFFFF"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.314" />
+
+    <TextView
         android:id="@+id/temperatureDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,4 +81,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

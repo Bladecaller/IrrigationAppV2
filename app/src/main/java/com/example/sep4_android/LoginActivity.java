@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                                         i.putExtra("username", String.valueOf(username.getText()));
-                                        //accountVM.addAccount(new Account(9999,String.valueOf(username.getText())));
+                                        accountVM.addAccount(new Account(9999,String.valueOf(username.getText())));
                                         startActivity(i);
                                     }
 

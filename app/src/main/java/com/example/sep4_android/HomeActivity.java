@@ -24,9 +24,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import model.room.entity.Account;
+import model.room.entity.Electricity;
 import model.room.entity.Humidity;
 import model.room.entity.Precipitation;
 import model.room.entity.Temperature;
+import model.room.repositories.ElectricityRepo;
 import viewmodel.AccountRepoViewModel;
 import viewmodel.HumidityViewModel;
 import viewmodel.PrecipitationViewModel;
@@ -38,12 +40,13 @@ public class HomeActivity extends AppCompatActivity {
     private PrecipitationViewModel precipitationViewModel;
     private AccountRepoViewModel accountVM;
     private Account acc;
+    private Electricity price;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
 
     private TextView humidityDisplay;
     private TextView temperatureDisplay;
-    private TextView precipitationDisplay;
+    private TextView precipitationDisplay,electricityPriceDisplay;
     private String username, location;
 
     private Button settingsButton;
@@ -56,48 +59,15 @@ public class HomeActivity extends AppCompatActivity {
         precipitationDisplay = findViewById(R.id.precipitationDisplay);
         temperatureDisplay = findViewById(R.id.temperatureDisplay);
         settingsButton = findViewById(R.id.settings_home);
-
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null && extras.containsKey("username")) {
-            username = extras.getString("username");
-            acc = new Account(9999,username);
-            System.out.println("ACC IS NOT NULL");
-        }
-        //System.out.println("Username 1 = " + acc.getUsername());
-
-        rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
-        reference = rootNode.getReference("users");
-
+        electricityPriceDisplay = findViewById(R.id.electricityPrice);
         humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
-        if(acc != null){
-            accountVM.addAccount(acc);
-            System.out.println("CALLED FOR ACCOUNT ADDITION");
-        }
+        rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
+        reference = rootNode.getReference("users");
+        Bundle extras = getIntent().getExtras();
 
-        //CODE THAT READS FROM FIREBASE
-        //GOING THROUGH EACH NODE TO GET THE VALUE IN LINE 87
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    System.out.println("Username is : "+ acc.getUsername());
-                    Object account = dataSnapshot.child(acc.getUsername()).child("userInfo").child("location").getValue();
-                    location = String.valueOf(account);
-                    System.out.println("VALUE IS HERE FirebaseLocation is :" + " "+location);
-                    humidityViewModel.getHumidity(location);
-                    temperatureViewModel.getTemperature(location);
-                    precipitationViewModel.getPrecipitation(location);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR IS HERE", databaseError.getMessage());
-            }
-        };
-        accountVM.getCurrentAccount();
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,13 +78,43 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        if (extras != null && extras.containsKey("username")) {
+            username = extras.getString("username");
+            acc = new Account(9999,username);
+            System.out.println("ACC IS NOT NULL");
+        }
+
+        if(acc != null){
+            accountVM.addAccount(acc);
+            System.out.println("CALLED FOR ACCOUNT ADDITION");
+        }
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    System.out.println("Username is : "+ acc.getUsername());
+                    Object locationObj = dataSnapshot.child(acc.getUsername()).child("userInfo").child("location").getValue();
+                    location = String.valueOf(locationObj);
+                    accountVM.getElectricityPrice("West");
+                    System.out.println("VALUE IS HERE FirebaseLocation is :" + " "+location);
+                    humidityViewModel.getHumidity(location);
+                    temperatureViewModel.getTemperature(location);
+                    precipitationViewModel.getPrecipitation(location);
+                    //electricityPriceDisplay.setText(String.valueOf(accountVM.getElectricityPrice("West")));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR IS HERE", databaseError.getMessage());
+            }
+        };
+
+
         humidityViewModel.getHumidity(location).observe(this, new Observer<List<Humidity>>() {
             @Override
             public void onChanged(List<Humidity> humidities) {
                 if(!humidities.isEmpty()){
                     humidityDisplay.setText("Humidity: "+String.valueOf(humidities.get(humidities.size()-1).getValue()));
-                    System.out.println("LOCATION IS:"+ location);
-
                 }else {
                     humidityDisplay.setText("Empty, calling for data");
                 }
@@ -149,6 +149,16 @@ public class HomeActivity extends AppCompatActivity {
                 if(account != null){
                     acc = account;
                     reference.addListenerForSingleValueEvent(valueEventListener);
+                    System.out.println("Account value :"+acc);
+                }
+            }
+        });
+        accountVM.getElectricityPrice("West").observe(this, new Observer<Electricity>() {
+            @Override
+            public void onChanged(Electricity electricity) {
+                if(electricity != null){
+                    price = electricity;
+                    electricityPriceDisplay.setText(String.valueOf(price.getValue()));
                 }
             }
         });

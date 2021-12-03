@@ -6,20 +6,18 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import java.util.List;
-
-import model.room.entity.Account;
 import model.room.entity.Electricity;
 
 
 @Dao
-public interface AccountDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAccount(Account account);
+public interface ElectricityDao {
 
-    @Query("DELETE FROM Account")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertElectricityLocation(Electricity electricity);
+
+    @Query("DELETE FROM Electricity")
     void deleteAll();
 
-    @Query("SELECT * FROM Account ORDER BY UserID DESC Limit 1")
-    LiveData<Account> getCurrentAccount();
+    @Query("SELECT * FROM Electricity ORDER BY ID DESC Limit 1")
+    LiveData<Electricity> getElectricity();
 }

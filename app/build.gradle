@@ -92,6 +92,8 @@ dependencies {
 
 
     implementation 'com.google.firebase:firebase-database:20.0.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.1'
 
 
 

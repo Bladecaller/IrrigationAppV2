@@ -58,28 +58,13 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_activity);
         buttonSet = findViewById(R.id.location_button);
         buttonBack = findViewById(R.id.backSettings);
-
         rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
         reference = rootNode.getReference("users");
-
         humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
-
-        accountVM.getCurrentAccount().observe(this, new Observer<Account>() {
-            @Override
-            public void onChanged(Account account) {
-                if(account != null){
-                    acc = account;
-                }
-            }
-        });
-
-        acc = accountVM.getCurrentAccount().getValue();
-
         spinner = findViewById(R.id.spinner);
-
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Horsens");
         arrayList.add("Aarhus");
@@ -88,15 +73,27 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+        accountVM.getCurrentAccount();
 
 
+        accountVM.getCurrentAccount().observe(this, new Observer<Account>() {
+            @Override
+            public void onChanged(Account account) {
+                if(account != null){
+                    acc = account;
+                    System.out.println("Account value observe:"+acc);
+                }
+            }
+        });
 
         buttonSet.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(acc.getUsername() != "Default"){
+
+                if(acc!=null && acc.getUsername() != "Default"){
                     reference.child(acc.getUsername()).child("userInfo").child("location").setValue(spinner.getSelectedItem().toString());
                     System.out.println("Location set");
+                    displayToast("Location is set");
                 }
             }
         });
@@ -109,7 +106,6 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     public void displayToast(String texts){
