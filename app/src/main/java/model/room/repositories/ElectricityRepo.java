@@ -32,23 +32,27 @@ public class ElectricityRepo {
         electricityDao = db.electricityDao();
     }
 
-    public double getElectricity(String string){
-        if(string == "West"){
+    public void getElectricity(String string){
+
+        if(string.equals("West")){
             side = "DK1";
+            System.out.println("Called for west");
         }
-        if(string =="East"){
+        else if(string.equals("East")){
             side = "DK2";
+            System.out.println("Called for east");
+        }else{
+            System.out.println("Not calling for any price");
         }
+
         Call<RootElectricity> call = retrofit.api.getElectricity("datastore_search_sql?sql=SELECT%20%20\"SpotPriceDKK\"%20%20from%20\"elspotprices\"%20WHERE%20\"PriceArea\"%20=%20%27"+side+"%27%20%20ORDER%20BY%20\"HourDK\"%20DESC%20LIMIT%201");
         call.enqueue(new Callback<RootElectricity>(){
             @Override
             public void onResponse (Call <RootElectricity> call, Response<RootElectricity> response){
-                if(response.body()!=null){
-                    if(!response.body().result.records.isEmpty()){
                         price = response.body().result.records.get(0).SpotPriceDKK;
+                System.out.println("Got PRICE OF " + response.body().result.records.get(0).SpotPriceDKK);
                         insert(new Electricity(9999,price));
-                    }
-                }
+                        System.out.println("setting " + price);
             }
             @Override
             public void onFailure(Call<RootElectricity> call, Throwable t) {
@@ -56,8 +60,6 @@ public class ElectricityRepo {
                 System.out.println(t.getMessage());
             }
         });
-        System.out.println("RETURNING PRICE OF " + price);
-                return price;
     }
 
 

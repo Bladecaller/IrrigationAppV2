@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView humidityDisplay;
     private TextView temperatureDisplay;
     private TextView precipitationDisplay,electricityPriceDisplay;
-    private String username, location;
+    private String username, location, accPrice;
 
     private Button settingsButton;
 
@@ -94,13 +94,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     System.out.println("Username is : "+ acc.getUsername());
                     Object locationObj = dataSnapshot.child(acc.getUsername()).child("userInfo").child("location").getValue();
+                    Object priceObj = dataSnapshot.child(acc.getUsername()).child("userInfo").child("electricityLocation").getValue();
                     location = String.valueOf(locationObj);
-                    accountVM.getElectricityPrice("West");
-                    System.out.println("VALUE IS HERE FirebaseLocation is :" + " "+location);
+                    accPrice = String.valueOf(priceObj);
+                    System.out.println("Calling price value is :"+accPrice);
+                    accountVM.updateElectricityPrice(accPrice);
                     humidityViewModel.getHumidity(location);
                     temperatureViewModel.getTemperature(location);
                     precipitationViewModel.getPrecipitation(location);
-                    //electricityPriceDisplay.setText(String.valueOf(accountVM.getElectricityPrice("West")));
             }
 
             @Override
@@ -153,12 +154,13 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-        accountVM.getElectricityPrice("West").observe(this, new Observer<Electricity>() {
+
+        accountVM.getElectricityPrice().observe(this, new Observer<Electricity>() {
             @Override
             public void onChanged(Electricity electricity) {
                 if(electricity != null){
                     price = electricity;
-                    electricityPriceDisplay.setText(String.valueOf(price.getValue()));
+                    electricityPriceDisplay.setText("Price mW/h :" + String.valueOf(price.getValue()));
                 }
             }
         });

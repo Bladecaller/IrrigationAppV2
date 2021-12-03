@@ -25,8 +25,10 @@ public class AccountRepoViewModel extends AndroidViewModel {
         accountRepo = new AccountRepo(application);
         electricityRepo = new ElectricityRepo(application);
     }
-    public LiveData<Electricity> getElectricityPrice(String side){
+    public void updateElectricityPrice(String side){
         electricityRepo.getElectricity(side);
+    }
+    public LiveData<Electricity> getElectricityPrice(){
         return electricityRepo.getElectricityFromRoom();
     }
     public void addAccount(Account acc){

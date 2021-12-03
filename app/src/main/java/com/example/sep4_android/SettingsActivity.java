@@ -2,46 +2,33 @@ package com.example.sep4_android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import model.room.entity.Account;
-import model.room.entity.Humidity;
-import model.room.entity.Precipitation;
-import model.room.entity.Temperature;
 import viewmodel.AccountRepoViewModel;
-import viewmodel.ClimateViewModel;
 import viewmodel.HumidityViewModel;
 import viewmodel.PrecipitationViewModel;
 import viewmodel.TemperatureViewModel;
 
 public class SettingsActivity extends AppCompatActivity {
     EditText location;
-    Spinner spinner;
-    Button buttonSet;
+    Spinner spinner,spinnerPrice,spinnerLum;
+    Button buttonSet,buttonSetPrice,buttonSetLuminosity;
     Button buttonBack;
     private HumidityViewModel humidityViewModel;
     private TemperatureViewModel temperatureViewModel;
@@ -64,17 +51,35 @@ public class SettingsActivity extends AppCompatActivity {
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
-        spinner = findViewById(R.id.spinner);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Horsens");
-        arrayList.add("Aarhus");
-        arrayList.add("Attu");
-        arrayList.add("Nuuk");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        accountVM.getCurrentAccount();
+        buttonSetPrice = findViewById(R.id.price_button);
 
+        spinner = findViewById(R.id.spinnerLocation);
+        ArrayList<String> arrayListLocation = new ArrayList<>();
+        arrayListLocation.add("Horsens");
+        arrayListLocation.add("Aarhus");
+        arrayListLocation.add("Attu");
+        arrayListLocation.add("Nuuk");
+        ArrayAdapter<String> arrayAdapterLocation = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListLocation);
+        arrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapterLocation);
+
+        spinnerPrice = findViewById(R.id.spinnerPrice);
+        ArrayList<String> arrayListPrice = new ArrayList<>();
+        arrayListPrice.add("West");
+        arrayListPrice.add("East");
+        ArrayAdapter<String> arrayAdapterPrice = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListPrice);
+        arrayAdapterPrice.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPrice.setAdapter(arrayAdapterPrice);
+
+        spinnerLum = findViewById(R.id.spinnerLuminocity);
+        ArrayList<String> arrayListLum = new ArrayList<>();
+        arrayListLum.add("station1");
+        arrayListLum.add("station2");
+        ArrayAdapter<String> arrayAdapterLum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListLum);
+        arrayAdapterLum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLum.setAdapter(arrayAdapterLum);
+
+        accountVM.getCurrentAccount();
 
         accountVM.getCurrentAccount().observe(this, new Observer<Account>() {
             @Override
@@ -94,6 +99,18 @@ public class SettingsActivity extends AppCompatActivity {
                     reference.child(acc.getUsername()).child("userInfo").child("location").setValue(spinner.getSelectedItem().toString());
                     System.out.println("Location set");
                     displayToast("Location is set");
+                }
+            }
+        });
+
+        buttonSetPrice.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                if(!acc.getUsername().equals("Default")){
+                    reference.child(acc.getUsername()).child("userInfo").child("electricityLocation").setValue(spinnerPrice.getSelectedItem().toString());
+                    System.out.println("Price set");
+                    displayToast("Price is set");
                 }
             }
         });
