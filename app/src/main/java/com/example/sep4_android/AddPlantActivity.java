@@ -16,7 +16,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import firebase_sql_helper_classes.FirebaseHelperClass;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Locale;
+
+import firebase_sql_helper_classes.Plant;
 import firebase_sql_helper_classes.UserInfoHelperClass;
 
 public class AddPlantActivity extends AppCompatActivity {
@@ -26,6 +33,8 @@ public class AddPlantActivity extends AppCompatActivity {
     private String username = "";
     FirebaseDatabase rootNode;
     DatabaseReference reference;
+    private long longDate;
+    private String stringDate;
 
 
     @Override
@@ -42,7 +51,7 @@ public class AddPlantActivity extends AppCompatActivity {
         harvestAfterMonthsInfo = findViewById(R.id.harvestAfterMonthsText);
         addDataBtn = findViewById(R.id.addDataButton);
 
-
+/*
         Bundle extras = getIntent().getExtras();
 
         if (extras.containsKey("username")) {
@@ -50,7 +59,7 @@ public class AddPlantActivity extends AppCompatActivity {
 
             usernameDisplay.setText(username);
         }
-
+*/
 
 
         addDataBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +75,10 @@ public class AddPlantActivity extends AppCompatActivity {
                 double waterPerYards =Double.parseDouble(waterPerYardsInfo.getText().toString());
                 double amountOfLand = Double.parseDouble(amountOfLandInfo.getText().toString());
                 double harvestAfterMonths = Double.parseDouble(harvestAfterMonthsInfo.getText().toString());
+                LocalDate date = LocalDate.now();
+                Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                longDate = instant.toEpochMilli();
+                stringDate = Long.toString(longDate);
                 String locationTest = "Aarhus";
                 String electricityLocationTest = "West";
                 String luminosityLocationTest = "ZONE 3";
@@ -77,7 +90,7 @@ public class AddPlantActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                            Object plant = dataSnapshot.child(username).child("plantsInfo").child(plantName).getValue();
+                            Object plant = dataSnapshot.child("zoro").child("plantsInfo").child(plantName).getValue();
 
                         //Do what you need to do with your list
                         Log.d("VALUE IS HERE", plantName + " "+String.valueOf(plant));
@@ -93,13 +106,20 @@ public class AddPlantActivity extends AppCompatActivity {
                 //FireBaseHelperClass helps with setting the values for the calendar
                 //UserInfo helps with setting the values for the user
                 //Both of them need to go through some nodes before creating the set
-                FirebaseHelperClass plantsInfo = new FirebaseHelperClass(wateringFrequency, time, waterPerYards, amountOfLand, harvestAfterMonths);
-                UserInfoHelperClass userInfo = new UserInfoHelperClass(locationTest, luminosityLocationTest, electricityLocationTest);
-                reference.child(username).child("userInfo").setValue(userInfo);
-                reference.child(username).child("plantsInfo").child(plantName).setValue(plantsInfo);
+                Plant plantsInfo = new Plant(wateringFrequency, time, waterPerYards, amountOfLand, harvestAfterMonths, stringDate);
+                reference.child("zoro").child("plantsInfo").child(plantName).setValue(plantsInfo);
+
+                String eventName = plantInfo.getText().toString();
+                String eventTime = timeInfo.getText().toString();
+                Plant newEvent = new Plant(eventName,eventTime, date);
+               // Plant.plantsList.add(newEvent);
+                finish();
 
             }
         });
+
+
+
         ///////////////////////////////////////////////////////////////
         //This is working but it is annoying so i disabled it for now
 
