@@ -70,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterPrice = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListPrice);
         arrayAdapterPrice.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPrice.setAdapter(arrayAdapterPrice);
-
+/*
         spinnerLum = findViewById(R.id.spinnerLuminocity);
         ArrayList<String> arrayListLum = new ArrayList<>();
         arrayListLum.add("station1");
@@ -78,6 +78,8 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterLum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListLum);
         arrayAdapterLum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLum.setAdapter(arrayAdapterLum);
+
+ */
 
         accountVM.getCurrentAccount();
 
@@ -119,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(v.getContext(),HomeActivity.class);
+                intent.setClass(v.getContext(),WeeklyCalendarActivity.class);
                 startActivity(intent);
             }
         });

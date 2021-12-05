@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                                        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                                        Intent i = new Intent(getApplicationContext(), WeeklyCalendarActivity.class);
                                         i.putExtra("username", String.valueOf(username.getText()));
                                         accountVM.addAccount(new Account(9999,String.valueOf(username.getText())));
                                         startActivity(i);
@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, WeeklyCalendarActivity.class);
                                 startActivity(intent);
                                 finish();
 

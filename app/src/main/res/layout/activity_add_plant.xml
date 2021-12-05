@@ -74,14 +74,14 @@
         android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/harvestAfterMonthsText"
+        android:id="@+id/harvestDate"
         style="@style/TextInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Months until harvest"
+        android:hint="end YYYY-MM-DD"
         android:inputType="text"
         android:minHeight="48dp" />
 
@@ -94,7 +94,7 @@
         android:layout_gravity="center"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="YYYY-MM-DD"
+        android:hint="start YYYY-MM-DD"
         android:inputType="text"
         android:minHeight="48dp" />
 

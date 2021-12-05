@@ -1,12 +1,6 @@
 package firebase_sql_helper_classes;
 
 
-import com.example.sep4_android.Event;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Plant {
     String startDate;
     String plantName;
@@ -14,18 +8,18 @@ public class Plant {
     String time;
     double waterPerYards;
     double amountOfLand;
-    double harvestAfterMonths;
+    String harvestDate;
 
 
     public Plant(String startDate,int wateringFrequency, String time, double waterPerYards,
-                 double amountOfLand, double harvestAfterMonths, String plantName) {
+                 double amountOfLand, String harevestDate, String plantName) {
         this.startDate = startDate;
         this.plantName = plantName;
         this.wateringFrequency = wateringFrequency;
         this.time = time;
         this.waterPerYards = waterPerYards;
         this.amountOfLand = amountOfLand;
-        this.harvestAfterMonths = harvestAfterMonths;
+        this.harvestDate = harevestDate;
     }
 
     public Plant(){
@@ -80,12 +74,12 @@ public class Plant {
         this.amountOfLand = amountOfLand;
     }
 
-    public double getHarvestAfterMonths() {
-        return harvestAfterMonths;
+    public String getHarvestDate() {
+        return harvestDate;
     }
 
-    public void setHarvestAfterMonths(double harvestAfterMonths) {
-        this.harvestAfterMonths = harvestAfterMonths;
+    public void setHarvestDate(String harvestDate) {
+        this.harvestDate = harvestDate;
     }
 }
 

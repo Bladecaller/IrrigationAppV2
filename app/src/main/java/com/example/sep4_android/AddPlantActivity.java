@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +42,7 @@ public class AddPlantActivity extends AppCompatActivity {
         amountOfLand = findViewById(R.id.amountOfLandText);
         waterPerYard = findViewById(R.id.waterPerYardsText);
         startDate = findViewById(R.id.startDateText);
-        harvestAfterMonths = findViewById(R.id.harvestAfterMonthsText);
+        harvestAfterMonths = findViewById(R.id.harvestDate);
         time = findViewById(R.id.timeText);
         wateringFrequency = findViewById(R.id.wateringFrequencyText);
         activity = this;
@@ -67,7 +66,7 @@ public class AddPlantActivity extends AppCompatActivity {
                             time.getText().toString(),
                             Integer.parseInt(waterPerYard.getText().toString()),
                             Integer.parseInt(amountOfLand.getText().toString()),
-                            Integer.parseInt(harvestAfterMonths.getText().toString()),
+                            harvestAfterMonths.getText().toString(),
                             plantName.getText().toString());
 
                     reference.push().setValue(plant);

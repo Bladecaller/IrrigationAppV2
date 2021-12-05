@@ -49,10 +49,12 @@ public class ElectricityRepo {
         call.enqueue(new Callback<RootElectricity>(){
             @Override
             public void onResponse (Call <RootElectricity> call, Response<RootElectricity> response){
-                        price = response.body().result.records.get(0).SpotPriceDKK;
-                System.out.println("Got PRICE OF " + response.body().result.records.get(0).SpotPriceDKK);
-                        insert(new Electricity(9999,price));
-                        System.out.println("setting " + price);
+                if(!response.body().result.records.isEmpty()){
+                    price = response.body().result.records.get(0).SpotPriceDKK;
+                    System.out.println("Got PRICE OF " + response.body().result.records.get(0).SpotPriceDKK);
+                    insert(new Electricity(9999,price));
+                    System.out.println("setting " + price);
+                }
             }
             @Override
             public void onFailure(Call<RootElectricity> call, Throwable t) {
