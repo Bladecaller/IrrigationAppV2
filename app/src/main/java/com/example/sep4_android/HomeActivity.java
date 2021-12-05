@@ -167,6 +167,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void seeCalendar(View view) {
-        startActivity(new Intent(this, MainCalendarActivity.class));
+        startActivity(new Intent(this, WeeklyCalendarActivity.class));
     }
 }

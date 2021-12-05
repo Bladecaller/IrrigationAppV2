@@ -15,7 +15,7 @@
         android:orientation="horizontal"/>
 
     <EditText
-        android:id="@+id/plantText"
+        android:id="@+id/plantNameText"
         style="@style/TextInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Watering Frequency"
+        android:hint="Watering frequency"
         android:inputType="text"
         android:minHeight="48dp" />
 
@@ -45,7 +45,7 @@
         android:layout_gravity="center"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Time"
+        android:hint=" time HH-MM"
         android:inputType="text"
         android:minHeight="50dp" />
 
@@ -57,7 +57,7 @@
         android:layout_gravity="center"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Water / Yards"
+        android:hint="Litre per yard"
         android:inputType="text"
         android:minHeight="48dp" />
 
@@ -81,10 +81,22 @@
         android:layout_gravity="center"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Harvest After"
+        android:hint="Months until harvest"
         android:inputType="text"
         android:minHeight="48dp" />
 
+
+    <EditText
+        android:id="@+id/startDateText"
+        style="@style/TextInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:fontFamily="@font/allerta"
+        android:hint="YYYY-MM-DD"
+        android:inputType="text"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/addDataButton"

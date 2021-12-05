@@ -124,29 +124,30 @@
     </LinearLayout>
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="120dp"
+        android:layout_weight="1" />
 
     <Button
+        android:id="@+id/addPlantButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@null"
         android:text="Add a Plant"
         android:textColor="@android:color/holo_green_dark"
-        android:background="@null"
-        android:textStyle="normal"
-        android:onClick="newEventAction"
-        android:layout_gravity="center"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="normal" />
 
-    <ListView
-        android:id="@+id/eventListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/plantRecycleListView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"/>
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:paddingTop="30dp"
+        android:layout_margin="3dp"/>
 
 </LinearLayout>

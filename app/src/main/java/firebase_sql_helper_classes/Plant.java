@@ -8,61 +8,36 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Plant {
-    LocalDate date;
-    String username;
+    String startDate;
     String plantName;
     int wateringFrequency;
     String time;
     double waterPerYards;
     double amountOfLand;
     double harvestAfterMonths;
-    String convertedDate;
 
 
-
-    public static ArrayList<Plant> plantsForDate(LocalDate dateStart, LocalDate harvest, ArrayList<Plant> addedPlants)
-    {
-        ArrayList<Plant> plants = new ArrayList<>();
-        for(Plant plant : addedPlants)
-        {
-            if(plant.getDate().isAfter(dateStart) && plant.getDate().isBefore(harvest))
-                System.out.println("ADDING A PLANT");
-            System.out.println("ADDING A PLANT");
-            System.out.println("ADDING A PLANT");
-                plants.add(plant);
-        }
-
-        return plants;
-    }
-
-
-    public Plant(int wateringFrequency, String time, double waterPerYards, double amountOfLand, double harvestAfterMonths,String convertedDate) {
+    public Plant(String startDate,int wateringFrequency, String time, double waterPerYards,
+                 double amountOfLand, double harvestAfterMonths, String plantName) {
+        this.startDate = startDate;
         this.plantName = plantName;
         this.wateringFrequency = wateringFrequency;
         this.time = time;
         this.waterPerYards = waterPerYards;
         this.amountOfLand = amountOfLand;
         this.harvestAfterMonths = harvestAfterMonths;
-        this.convertedDate = convertedDate;
     }
 
-    public Plant(String plantName, String time, LocalDate date) {
-        this.plantName = plantName;
-        this.time = time;
-        this.date= date;
+    public Plant(){
+
     }
 
-    public Plant() {
+    public String getStartDate() {
+        return startDate;
     }
 
-
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public String getPlantName() {
@@ -112,20 +87,5 @@ public class Plant {
     public void setHarvestAfterMonths(double harvestAfterMonths) {
         this.harvestAfterMonths = harvestAfterMonths;
     }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getConvertedDate() {
-        return convertedDate;
-    }
-
-    public void setConvertedDate(String convertedDate) {
-        this.convertedDate = convertedDate;
-    }
 }
+

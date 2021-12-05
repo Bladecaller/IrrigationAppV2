@@ -1,120 +1,94 @@
 package com.example.sep4_android;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Locale;
 
 import firebase_sql_helper_classes.Plant;
-import firebase_sql_helper_classes.UserInfoHelperClass;
+import model.room.entity.Account;
+import viewmodel.AccountRepoViewModel;
 
 public class AddPlantActivity extends AppCompatActivity {
-    public TextView usernameDisplay;
-    public EditText plantInfo,wateringFrequencyInfo, timeInfo, yardsInfo, waterPerYardsInfo, amountOfLandInfo, harvestAfterMonthsInfo ;
+    public EditText plantName,amountOfLand,waterPerYard,
+            startDate,harvestAfterMonths,time,wateringFrequency;
     public Button addDataBtn;
-    private String username = "";
+    Activity activity;
+    AccountRepoViewModel accountVM;
+    Account acc;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
-    private long longDate;
-    private String stringDate;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main123);
-
-       // usernameDisplay = findViewById(R.id.username2);
-        plantInfo = findViewById(R.id.plantText);
-        wateringFrequencyInfo = findViewById(R.id.wateringFrequencyText);
-        timeInfo = findViewById(R.id.timeText);
-        waterPerYardsInfo = findViewById(R.id.waterPerYardsText);
-        amountOfLandInfo = findViewById(R.id.amountOfLandText);
-        harvestAfterMonthsInfo = findViewById(R.id.harvestAfterMonthsText);
+        setContentView(R.layout.activity_add_plant);
+        accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
+        accountVM.getCurrentAccount();
         addDataBtn = findViewById(R.id.addDataButton);
-
-/*
-        Bundle extras = getIntent().getExtras();
-
-        if (extras.containsKey("username")) {
-                 username = extras.getString("username");
-
-            usernameDisplay.setText(username);
-        }
-*/
-
+        plantName = findViewById(R.id.plantNameText);
+        amountOfLand = findViewById(R.id.amountOfLandText);
+        waterPerYard = findViewById(R.id.waterPerYardsText);
+        startDate = findViewById(R.id.startDateText);
+        harvestAfterMonths = findViewById(R.id.harvestAfterMonthsText);
+        time = findViewById(R.id.timeText);
+        wateringFrequency = findViewById(R.id.wateringFrequencyText);
+        activity = this;
 
         addDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
-                reference = rootNode.getReference("users");
+                if(startDate.getText().toString().matches("")||
+                wateringFrequency.getText().toString().matches("")||
+                        time.getText().toString().matches("")||
+                        waterPerYard.getText().toString().matches("")||
+                        amountOfLand.getText().toString().matches("")||
+                        harvestAfterMonths.getText().toString().matches("")||
+                        plantName.getText().toString().matches("")){
+                    Toast.makeText(activity, "You have empty fields",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    Plant plant = new Plant(
+                            startDate.getText().toString(),
+                            Integer.parseInt(wateringFrequency.getText().toString()),
+                            time.getText().toString(),
+                            Integer.parseInt(waterPerYard.getText().toString()),
+                            Integer.parseInt(amountOfLand.getText().toString()),
+                            Integer.parseInt(harvestAfterMonths.getText().toString()),
+                            plantName.getText().toString());
 
-                //All the values that needs to be pushed on FIREBASE
-                String plantName = plantInfo.getText().toString();
-                int wateringFrequency = Integer.parseInt(wateringFrequencyInfo.getText().toString());
-                String time = timeInfo.getText().toString();
-                double waterPerYards =Double.parseDouble(waterPerYardsInfo.getText().toString());
-                double amountOfLand = Double.parseDouble(amountOfLandInfo.getText().toString());
-                double harvestAfterMonths = Double.parseDouble(harvestAfterMonthsInfo.getText().toString());
-                LocalDate date = LocalDate.now();
-                Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-                longDate = instant.toEpochMilli();
-                stringDate = Long.toString(longDate);
-                String locationTest = "Aarhus";
-                String electricityLocationTest = "West";
-                String luminosityLocationTest = "ZONE 3";
+                    reference.push().setValue(plant);
+                    Toast.makeText(activity, plantName.getText().toString()+" was added!",
+                            Toast.LENGTH_LONG).show();
 
-                //CODE THAT READS FROM FIREBASE
-                //GOING THROUGH EACH NODE TO GET THE VALUE
-                ValueEventListener valueEventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                            Object plant = dataSnapshot.child("zoro").child("plantsInfo").child(plantName).getValue();
-
-                        //Do what you need to do with your list
-                        Log.d("VALUE IS HERE", plantName + " "+String.valueOf(plant));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.d("ERROR IS HERE", databaseError.getMessage());
-                    }
-                };
-                //REFERENCE TO FIREBASE MAIN NODE
-                reference.addListenerForSingleValueEvent(valueEventListener);
-                //FireBaseHelperClass helps with setting the values for the calendar
-                //UserInfo helps with setting the values for the user
-                //Both of them need to go through some nodes before creating the set
-                Plant plantsInfo = new Plant(wateringFrequency, time, waterPerYards, amountOfLand, harvestAfterMonths, stringDate);
-                reference.child("zoro").child("plantsInfo").child(plantName).setValue(plantsInfo);
-
-                String eventName = plantInfo.getText().toString();
-                String eventTime = timeInfo.getText().toString();
-                Plant newEvent = new Plant(eventName,eventTime, date);
-               // Plant.plantsList.add(newEvent);
-                finish();
-
+                    Intent intent = new Intent();
+                    intent.setClass(view.getContext(),WeeklyCalendarActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        accountVM.getCurrentAccount().observe(this, new Observer<Account>() {
+            @Override
+            public void onChanged(Account account) {
+                if(account!= null){
+                    acc = account;
+                    rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
+                    reference = rootNode.getReference().child("users").child(acc.getUsername()).child("plantsInfo");
+                    reference.orderByChild("time");
+                }
             }
         });
 
