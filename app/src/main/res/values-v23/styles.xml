@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="TextInput">
         <item name="android:shadowColor">@color/black</item>
         <item name="android:shadowDx">3.0</item>
@@ -15,13 +16,4 @@
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
-
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-
-    </style>
-
-    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
-        <item name="android:colorControlActivated" tools:targetApi="lollipop">@color/primary</item>
-    </style>
-
 </resources>

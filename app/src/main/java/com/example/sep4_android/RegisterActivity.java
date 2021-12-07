@@ -28,7 +28,7 @@ import firebase_sql_helper_classes.ConnectionClass;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public Button run;
+    public Button run, loginButton;
     public ProgressBar progressBar;
     public EditText username;
     public EditText password;
@@ -43,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         username=(EditText) findViewById(R.id.usernameText);
         password=(EditText) findViewById(R.id.pwText);
         run = (Button) findViewById(R.id.logInButton1);
+        loginButton = findViewById(R.id.loginPageButton);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         run.setOnClickListener(new View.OnClickListener()
@@ -51,6 +52,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Registeruser registeruser = new Registeruser();
                 registeruser.execute("");
+            }
+        });
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

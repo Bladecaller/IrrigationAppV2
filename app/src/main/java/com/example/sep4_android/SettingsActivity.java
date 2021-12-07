@@ -1,5 +1,6 @@
 package com.example.sep4_android;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import model.room.entity.Account;
 import viewmodel.AccountRepoViewModel;
@@ -30,6 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
     Spinner spinner,spinnerPrice,spinnerLum;
     Button buttonSet,buttonSetPrice,buttonSetLuminosity;
     Button buttonBack;
+    Toolbar toolbar;
     private HumidityViewModel humidityViewModel;
     private TemperatureViewModel temperatureViewModel;
     private PrecipitationViewModel precipitationViewModel;
@@ -39,12 +43,16 @@ public class SettingsActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
         buttonSet = findViewById(R.id.location_button);
         buttonBack = findViewById(R.id.backSettings);
+        toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
         reference = rootNode.getReference("users");
         humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);

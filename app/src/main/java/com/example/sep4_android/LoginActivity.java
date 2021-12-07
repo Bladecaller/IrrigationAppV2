@@ -7,9 +7,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -48,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.pwText);
 
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
-
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

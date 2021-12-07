@@ -16,6 +16,13 @@
         android:theme="@style/Theme.Design.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".GraphActivity"
+            android:parentActivityName=".WeeklyCalendarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".WeeklyCalendarActivity"
             android:exported="false" />
         <activity
@@ -23,15 +30,18 @@
             android:exported="false" />
         <activity
             android:name=".AddPlantActivity"
+            android:parentActivityName=".WeeklyCalendarActivity"
             android:exported="false" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SplashscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".WeeklyCalendarActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -6,6 +6,9 @@ import static com.example.sep4_android.CalendarUtils.monthYearFromDate;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,9 +21,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.sep4_android.ViewHolders.ViewHolderPlants;
@@ -39,6 +46,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import firebase_sql_helper_classes.Plant;
+import fragments.HomeFragment;
+import fragments.RandomFragment;
+import fragments.ReportFragment;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import meow.bottomnavigation.MeowBottomNavigation;
 import model.room.entity.Account;
 import model.room.entity.Electricity;
 import model.room.entity.Humidity;
@@ -51,7 +64,8 @@ import viewmodel.TemperatureViewModel;
 
 public class WeeklyCalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
 
-    private TextView monthYearText,currentUser;
+    private TextView monthYearText,currentUser, currentLocation;
+    private ImageView precipitationImage;
     private Activity activity;
     private RecyclerView calendarRecyclerView,firebaseRecyclerView;
     private FirebaseDatabase rootNode;
@@ -59,6 +73,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
     private LocalDate dateToCompare;
     private ArrayList<Plant> plantsInCurrentDay;
     private Button addBtn;
+    private Toolbar toolbar;
     private AccountRepoViewModel accountVM;
     private Account acc;
     private HumidityViewModel humidityViewModel;
@@ -72,6 +87,8 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
     private Button settingsButton;
     private double waterUse=0;
 
+    private final int ID_HOME = 1;
+    private final int ID_GRAPH = 2;
 
 
 
@@ -79,14 +96,18 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_activity);
+        setContentView(R.layout.activity_home);
         humidityDisplay = findViewById(R.id.humidityDisplay);
         precipitationDisplay = findViewById(R.id.precipitationDisplay);
         temperatureDisplay = findViewById(R.id.temperatureDisplay);
         settingsButton = findViewById(R.id.settings_home);
         currentUser = findViewById(R.id.userDisplay);
+        currentLocation = findViewById(R.id.locationDisplay);
         electricityPriceDisplay = findViewById(R.id.electricityPrice);
         dailyWaterUsage = findViewById(R.id.dailyWaterUsageText);
+        precipitationImage = findViewById(R.id.precipitationImage);
+        toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
         humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
@@ -102,6 +123,34 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         firebaseRecyclerView.setHasFixedSize(true);
         firebaseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         accountVM.getCurrentAccount();
+
+        MeowBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
+
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.rain_v1));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.small_precipitation));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.sauna_1));
+
+        bottomNavigation.show(1,true);
+        replace(new HomeFragment());
+        bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch(model.getId()){
+                    case 1:
+                        replace(new HomeFragment());
+                        break;
+
+                    case 2:
+                        replace(new ReportFragment());
+                        break;
+
+                    case 3:
+                        replace(new RandomFragment());
+                        break;
+                }
+                return null;
+            }
+        });
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +170,8 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                 Object priceObj = dataSnapshot.child(acc.getUsername()).child("userInfo").child("electricityLocation").getValue();
                 location = String.valueOf(locationObj);
                 accPrice = String.valueOf(priceObj);
-                currentUser.setText("Current user: "+acc.getUsername()+" with location: "+location);
+                currentUser.setText(acc.getUsername());
+                currentLocation.setText(location);
                 accountVM.updateElectricityPrice(accPrice);
                 humidityViewModel.getHumidity(location);
                 temperatureViewModel.getTemperature(location);
@@ -154,7 +204,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(v.getContext(),SettingsActivity.class);
+                intent.setClass(v.getContext(),GraphActivity.class);
                 startActivity(intent);
             }
         });
@@ -163,7 +213,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             @Override
             public void onChanged(List<Humidity> humidities) {
                 if(!humidities.isEmpty()){
-                    humidityDisplay.setText("Humidity: "+String.valueOf(humidities.get(humidities.size()-1).getValue()));
+                    humidityDisplay.setText(String.valueOf(humidities.get(humidities.size()-1).getValue()) + " %");
                 }else {
                     humidityDisplay.setText("Empty, calling for data");
                 }
@@ -173,7 +223,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             @Override
             public void onChanged(List<Temperature> temperatures) {
                 if(!temperatures.isEmpty()){
-                    temperatureDisplay.setText("Temperature: "+String.valueOf(temperatures.get(temperatures.size()-1).getValue()));
+                    temperatureDisplay.setText(String.valueOf(temperatures.get(temperatures.size()-1).getValue()) + " C");
 
                 }else {
                     temperatureDisplay.setText("Empty, calling for data");
@@ -185,8 +235,8 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             @Override
             public void onChanged(List<Precipitation> precipitations) {
                 if(!precipitations.isEmpty()){
-                    precipitationDisplay.setText("Precipitation: "+String.valueOf(precipitations.get(precipitations.size()-1).getValue()));
-
+                    precipitationDisplay.setText(String.valueOf(precipitations.get(precipitations.size()-1).getValue()));
+                    switchImage(String.valueOf(precipitations.get(precipitations.size()-1).getValue()));
                 }else {
                     precipitationDisplay.setText("Empty, calling for data");
                 }
@@ -198,11 +248,17 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             public void onChanged(Electricity electricity) {
                 if(electricity != null){
                     price = electricity;
-                    electricityPriceDisplay.setText("Price mW/h for "+accPrice +" Denmark: " + String.valueOf(price.getValue()));
+                    electricityPriceDisplay.setText(String.valueOf(price.getValue())+"\nDKK per MWh");
                 }
             }
         });
         }
+
+    private void replace(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame, fragment);
+        transaction.commit();
+    }
 
 
     private void initWidgets()
@@ -247,7 +303,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                                         System.out.println("Adding watter :"+model.getPlantName());
                                     }
                                 }
-                                dailyWaterUsage.setText("Daily water usage: "+String.valueOf(waterUse)+" litres");
+                                dailyWaterUsage.setText(String.valueOf(waterUse)+" L");
                             }
 
                         }else{
@@ -267,7 +323,40 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         adapter.startListening();
         firebaseRecyclerView.setAdapter(adapter);
     }
-
+    public void switchImage(String precipitation) {
+        switch (precipitation) {
+            case "Dissolving Clouds":
+                precipitationImage.setImageResource(R.drawable.dissolving_clouds_v1);
+                break;
+            case "Mist":
+                precipitationImage.setImageResource(R.drawable.mist_v1);
+                break;
+            case "Small Precipitation":
+                precipitationImage.setImageResource(R.drawable.small_precipitation);
+                break;
+            case "Snow":
+            case "Drifting Snow":
+                precipitationImage.setImageResource(R.drawable.snow_v2);
+                break;
+            case "Duststorm/Sandstorm":
+                precipitationImage.setImageResource(R.drawable.sandstorm_v1);
+                break;
+            case "Fog":
+                precipitationImage.setImageResource(R.drawable.fog_v1);
+                break;
+            case "Drizzle":
+                precipitationImage.setImageResource(R.drawable.drizzle_v2);
+                break;
+            case "Rain":
+            case "Solid Precipitation":
+            case "Rain Shower":
+                precipitationImage.setImageResource(R.drawable.rain_v1);
+                break;
+            case "Thunderstorm":
+                precipitationImage.setImageResource(R.drawable.thunderstorm_v2);
+                break;
+        }
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void previousWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
@@ -297,6 +386,19 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             plantsInCurrentDay.clear();
             setWeeklyView();
         }
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_button, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(),SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

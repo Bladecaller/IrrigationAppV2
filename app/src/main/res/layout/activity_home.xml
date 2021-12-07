@@ -3,123 +3,155 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#9F9D9D">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@android:style/Theme.Material.Light.LightStatusBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:title="Home"
+        app:titleTextColor="@android:color/holo_green_light"
+        tools:ignore="MissingConstraints"
+        tools:targetApi="m" />
+
+
+    <TextView
+        android:id="@+id/precipitationDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16" />
 
 
     <TextView
         android:id="@+id/humidityDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#000000"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186"
+        app:layout_constraintVertical_bias="0.251"
         tools:text="TextView"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/userDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#000000"
+        android:layout_width="95dp"
+        android:layout_height="32dp"
+        android:background="#FFFFFF"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/allerta"
+        android:textColor="#2E7D32"
+        android:textAlignment="center"
         android:textSize="20sp"
+        android:textStyle="italic"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035"
+        app:layout_constraintVertical_bias="0.08"
         tools:text="TextView"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/precipitationDisplay"
+        android:id="@+id/locationDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:shadowColor="#FFFFFF"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.251" />
+
 
     <TextView
         android:id="@+id/dailyWaterUsageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:shadowColor="#FFFFFF"
         android:text="No water usage"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintVertical_bias="0.32" />
 
     <TextView
         android:id="@+id/electricityPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:shadowColor="#FFFFFF"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.872"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.213" />
+        app:layout_constraintVertical_bias="0.238" />
 
     <TextView
         android:id="@+id/temperatureDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#000000"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.923"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.16" />
 
     <Button
         android:id="@+id/settings_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="GRAPH"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.124" />
+        app:layout_constraintVertical_bias="0.081" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="406dp"
         android:layout_height="470dp"
+        android:background="#DAD2D2"
         android:gravity="bottom"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -134,6 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+
             android:orientation="horizontal">
 
             <Button
@@ -152,9 +185,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:background="@color/white"
                 android:text="December 2021"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="#546E7A"
                 android:textSize="20sp" />
 
             <Button
@@ -179,63 +213,70 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/holo_red_light"
                 android:text="SUN"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#000000"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
                 android:text="MON"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#0D47A1"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
                 android:text="TUE"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#0D47A1"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
                 android:text="WED"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#0D47A1"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
                 android:text="THUR"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#0D47A1"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
                 android:text="FRI"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#0D47A1"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/holo_red_light"
                 android:text="SAT"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#000000"
                 android:textSize="16sp" />
 
 
@@ -246,17 +287,18 @@
             android:id="@+id/calendarRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="#FFFFFF" />
 
         <Button
             android:id="@+id/addPlantButton"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@null"
+            android:background="@drawable/button_rounded_red"
+            android:shadowColor="@color/purple_700"
             android:text="Add a Plant"
-            android:textColor="@android:color/holo_green_dark"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="normal" />
 
@@ -267,8 +309,110 @@
             android:layout_margin="3dp"
             android:layout_weight="5"
             android:paddingTop="30dp" />
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+        <meow.bottomnavigation.MeowBottomNavigation
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:mbn_backgroundBottomColor="#0644FD"
+            app:mbn_circleColor="#067508"
+            app:mbn_countBackgroundColor="#FF6F00"
+            app:mbn_countTextColor="#08FF00"
+            app:mbn_defaultIconColor="#1BB3FF"
+            app:mbn_rippleColor="#2FFFFFFF"
+            app:mbn_selectedIconColor="#000000"
+            app:mbn_shadowColor="#1FAC0AED" />
+
+
 
     </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.138"
+        app:srcCompat="@drawable/temperature_v1" />
+
+    <ImageView
+        android:id="@+id/precipitationImage"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.137"
+        app:srcCompat="@drawable/dissolving_clouds_v1" />
+
+    <ImageView
+        android:id="@+id/humidityImage"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235"
+        app:srcCompat="@drawable/humidity_icon" />
+
+    <ImageView
+        android:id="@+id/elecitrictyImage"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.362"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235"
+        app:srcCompat="@drawable/electricity_v1" />
+
+    <ImageView
+        android:id="@+id/locationImage"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235"
+        app:srcCompat="@drawable/location_v1" />
+
+    <ImageView
+        android:id="@+id/waterUsageImage"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.362"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312"
+        app:srcCompat="@drawable/water_usage_v1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
