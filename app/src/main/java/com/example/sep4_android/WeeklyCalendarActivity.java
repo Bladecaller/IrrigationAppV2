@@ -91,7 +91,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
-        Bundle extras = getIntent().getExtras();
+        //Bundle extras = getIntent().getExtras();
         CalendarUtils.selectedDate = LocalDate.now();
         activity = this;
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
@@ -236,6 +236,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                             holder.setItem(activity, model.getStartDate(), model.getWateringFrequency(),
                                     model.getTime(), model.getWaterPerYards(), model.getAmountOfLand(),
                                     model.getHarvestDate(), model.getPlantName());
+
                             if(!plantsInCurrentDay.contains(model)){
                                 plantsInCurrentDay.add(model);
                                 for (Plant plant : plantsInCurrentDay
