@@ -3,23 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@android:color/darker_gray"
     tools:context=".AddPlantActivity">
 
-
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:title="Add a plant"
+        app:titleTextColor="@android:color/holo_green_light"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:ignore="MissingConstraints" />
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:gravity="center"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo_v2"
+            tools:ignore="MissingConstraints" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/plantNameText"
         style="@style/TextInput"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
         android:ems="10"
         android:fontFamily="@font/allerta"
         android:hint="Plant"
@@ -31,6 +54,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
+        android:background="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/allerta"
         android:hint="Watering frequency"
@@ -43,7 +69,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
         android:ems="10"
+        android:background="@android:color/white"
         android:fontFamily="@font/allerta"
         android:hint=" time HH-MM"
         android:inputType="text"
@@ -55,7 +84,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
         android:ems="10"
+        android:background="@android:color/white"
         android:fontFamily="@font/allerta"
         android:hint="Litre per yard"
         android:inputType="text"
@@ -67,7 +99,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
         android:ems="10"
+        android:background="@android:color/white"
         android:fontFamily="@font/allerta"
         android:hint="Field in Yards"
         android:inputType="text"
@@ -79,6 +114,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
         android:ems="10"
         android:fontFamily="@font/allerta"
         android:hint="end YYYY-MM-DD"
@@ -94,9 +132,28 @@
         android:layout_gravity="center"
         android:ems="10"
         android:fontFamily="@font/allerta"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
         android:hint="start YYYY-MM-DD"
+        android:background="@android:color/white"
         android:inputType="text"
         android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/datePickerButton"
+        style="?spinnerStyle"
+        android:layout_width="233dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:background="@android:color/white"
+        android:fontFamily="@font/allerta"
+        android:textStyle="bold"
+        android:onClick="openDatePicker"
+        android:text="JAN 01 2021"
+        android:textAlignment="center"
+        android:textColor="#876C6C"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/addDataButton"
@@ -104,7 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0"
-        android:background="@drawable/button_rounded_red"
+        android:background="@drawable/button_rounded"
         android:text="Add data" />
 
 

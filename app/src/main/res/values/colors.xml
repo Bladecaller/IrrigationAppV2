@@ -14,4 +14,6 @@
     <color name="bgDark">#0F0F0F</color>
     <color name="accent3">#202020</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="shadowColor">#2E2E2E</color>
+    <color name="backgroundBottomColor">#04E1F8</color>
 </resources>

@@ -4,23 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D3CFCF"
     tools:context=".LoginActivity">
 
 
-        <EditText
-            android:id="@+id/usernameText"
-            style="@style/TextInput"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="80dp"
-            android:ems="10"
-            android:fontFamily="@font/allerta"
-            android:hint="Username"
-            android:inputType="textPersonName"
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="366dp"
+            android:layout_height="267dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:transitionName="logo_image"
+            app:layout_constraintVertical_bias="0.053"
+            app:srcCompat="@drawable/logo_v2"
+            tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/usernameText"
+                    style="@style/TextInput"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:fontFamily="@font/allerta"
+                    android:hint="Username"
+                    android:textColor="#876C6C"
+                    android:textColorHint="#876C6C"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -49,6 +69,9 @@
             android:fontFamily="@font/allerta"
             android:hint="Password"
             android:inputType="textPassword"
+            android:textColor="#876C6C"
+            android:textColorHint="#876C6C"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -90,28 +113,12 @@
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:text="REGISTER"
+            android:background="#0D405F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.875" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="238dp"
-            android:layout_height="138dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="52dp"
-            android:fontFamily="@font/staravenue"
-            android:gravity="center"
-            android:text="@string/landsomething"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="48sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.462"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
