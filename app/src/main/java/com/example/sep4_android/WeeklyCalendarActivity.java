@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.sep4_android.ViewHolders.ViewHolderPlants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -51,7 +52,6 @@ import fragments.RandomFragment;
 import fragments.ReportFragment;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
-import meow.bottomnavigation.MeowBottomNavigation;
 import model.room.entity.Account;
 import model.room.entity.Electricity;
 import model.room.entity.Humidity;
@@ -130,8 +130,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.small_precipitation));
         bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.sauna_1));
 
-        bottomNavigation.show(1,true);
-        replace(new HomeFragment());
+
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
             public Unit invoke(MeowBottomNavigation.Model model) {

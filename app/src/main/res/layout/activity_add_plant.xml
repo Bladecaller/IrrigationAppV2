@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,90 +8,167 @@
     android:background="@android:color/darker_gray"
     tools:context=".AddPlantActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:title="Add a plant"
-        app:titleTextColor="@android:color/holo_green_light"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Add a crop"
+        app:titleTextColor="@android:color/holo_green_light"
         tools:ignore="MissingConstraints" />
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/logo_v2"
-            tools:ignore="MissingConstraints" />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/plantNameText"
-        style="@style/TextInput"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:textColor="#876C6C"
-        android:textColorHint="#876C6C"
-        android:ems="10"
-        android:fontFamily="@font/allerta"
-        android:hint="Plant"
-        android:inputType="text" />
 
     <EditText
         android:id="@+id/wateringFrequencyText"
         style="@style/TextInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="49dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
-        android:textColor="#876C6C"
-        android:textColorHint="#876C6C"
         android:background="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/allerta"
         android:hint="Watering frequency"
         android:inputType="text"
-        android:minHeight="48dp" />
 
-    <EditText
-        android:id="@+id/timeText"
-        style="@style/TextInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:textColor="#876C6C"
         android:textColorHint="#876C6C"
-        android:ems="10"
-        android:background="@android:color/white"
-        android:fontFamily="@font/allerta"
-        android:hint=" time HH-MM"
-        android:inputType="text"
-        android:minHeight="50dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.897"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
 
     <EditText
-        android:id="@+id/waterPerYardsText"
+        android:id="@+id/plantNameText"
         style="@style/TextInput"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/allerta"
+        android:hint="Plant"
+        android:inputType="text"
         android:textColor="#876C6C"
         android:textColorHint="#876C6C"
-        android:ems="10"
-        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
+
+    <TextView
+        android:layout_width="209dp"
+        android:layout_height="26dp"
         android:fontFamily="@font/allerta"
-        android:hint="Litre per yard"
+        android:text="Plant Name"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.114" />
+
+    <TextView
+        android:layout_width="124dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/allerta"
+        android:text="Watering Frequency"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.094" />
+
+    <EditText
+        android:id="@+id/harvestDate"
+        style="@style/TextInput"
+        android:layout_width="195dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/allerta"
+        android:hint="end YYYY-MM-DD"
         android:inputType="text"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePickerButton"
+        app:layout_constraintVertical_bias="0.306" />
+
+    <TextView
+        android:layout_width="209dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/allerta"
+        android:text="Time of watering"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.561" />
+
+    <TextView
+        android:layout_width="181dp"
+        android:layout_height="31dp"
+        android:fontFamily="@font/allerta"
+        android:text="Starting date"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.731" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/allerta"
+        android:text="Amount of water per yard"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.283" />
 
     <EditText
         android:id="@+id/amountOfLandText"
@@ -99,71 +176,131 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#876C6C"
-        android:textColorHint="#876C6C"
-        android:ems="10"
         android:background="@android:color/white"
+        android:ems="10"
         android:fontFamily="@font/allerta"
         android:hint="Field in Yards"
         android:inputType="text"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/harvestDate"
-        style="@style/TextInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/white"
+        android:minHeight="48dp"
         android:textColor="#876C6C"
         android:textColorHint="#876C6C"
-        android:ems="10"
-        android:fontFamily="@font/allerta"
-        android:hint="end YYYY-MM-DD"
-        android:inputType="text"
-        android:minHeight="48dp" />
-
-
-    <EditText
-        android:id="@+id/startDateText"
-        style="@style/TextInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:fontFamily="@font/allerta"
-        android:textColor="#876C6C"
-        android:textColorHint="#876C6C"
-        android:hint="start YYYY-MM-DD"
-        android:background="@android:color/white"
-        android:inputType="text"
-        android:minHeight="48dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waterPerYardsText"
+        app:layout_constraintVertical_bias="0.127" />
 
     <Button
         android:id="@+id/datePickerButton"
         style="?spinnerStyle"
-        android:layout_width="233dp"
-        android:layout_height="wrap_content"
+        android:layout_width="179dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_weight="0"
         android:background="@android:color/white"
         android:fontFamily="@font/allerta"
-        android:textStyle="bold"
         android:onClick="openDatePicker"
         android:text="JAN 01 2021"
         android:textAlignment="center"
         android:textColor="#876C6C"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amountOfLandText"
+        app:layout_constraintVertical_bias="0.535" />
 
-    <Button
-        android:id="@+id/addDataButton"
+    <TextView
+        android:layout_width="209dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/allerta"
+        android:text="Amount of land"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.426" />
+
+    <EditText
+        android:id="@+id/waterPerYardsText"
+        style="@style/TextInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/allerta"
+        android:hint="Litre per yard"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColor="#876C6C"
+        android:textColorHint="#876C6C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plantNameText"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="181dp"
+        android:layout_height="31dp"
+        android:fontFamily="@font/allerta"
+        android:text="Harvesting"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.973"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.731" />
+
+    <Button
+        android:id="@+id/timePickerButton"
+        android:layout_width="205dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:background="@color/white"
+        android:fontFamily="@font/allerta"
+        android:onClick="popTimePicker"
+        android:text="SELECT TIME"
+        android:textColor="#876C6C"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.629" />
+
+    <Button
+        android:id="@+id/addDataButton"
+        android:layout_width="104dp"
+        android:layout_height="57dp"
+        android:layout_gravity="center"
         android:layout_weight="0"
         android:background="@drawable/button_rounded"
-        android:text="Add data" />
+        android:text="Add data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.956" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
