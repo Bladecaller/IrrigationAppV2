@@ -1,7 +1,9 @@
 package firebase_sql_helper_classes;
 
 
-public class Plant {
+import java.io.Serializable;
+
+public class Plant implements Serializable {
     String startDate;
     String plantName;
     int wateringFrequency;

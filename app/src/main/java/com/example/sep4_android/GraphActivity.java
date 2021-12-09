@@ -3,6 +3,7 @@ package com.example.sep4_android;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -15,6 +16,8 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
+
+import firebase_sql_helper_classes.Plant;
 
 public class GraphActivity extends AppCompatActivity {
 
@@ -30,6 +33,9 @@ public class GraphActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        ArrayList<Plant> object = (ArrayList<Plant>) args.getSerializable("List");
 
     mChart = findViewById(R.id.graphData);
 

@@ -95,7 +95,7 @@ public class AddPlantActivity extends AppCompatActivity {
                             harvestAfterMonths.getText().toString(),
                             plantName.getText().toString());
 
-                    reference.push().setValue(plant);
+                    reference.child(plant.getPlantName()).setValue(plant);
                     Toast.makeText(activity, plantName.getText().toString() + " was added!",
                             Toast.LENGTH_LONG).show();
 

@@ -26,6 +26,9 @@
             android:name=".WeeklyCalendarActivity"
             android:exported="false" />
         <activity
+            android:name=".RemoveActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

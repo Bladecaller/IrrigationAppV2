@@ -41,7 +41,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +87,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
     private TextView temperatureDisplay;
     private TextView precipitationDisplay,electricityPriceDisplay;
     private String username, location, accPrice;
-    private Button settingsButton;
+    private Button graphButton;
     private double waterUse=0;
 
     private final int ID_HOME = 1;
@@ -100,7 +103,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         humidityDisplay = findViewById(R.id.humidityDisplay);
         precipitationDisplay = findViewById(R.id.precipitationDisplay);
         temperatureDisplay = findViewById(R.id.temperatureDisplay);
-        settingsButton = findViewById(R.id.settings_home);
+        graphButton = findViewById(R.id.settings_home);
         currentUser = findViewById(R.id.userDisplay);
         currentLocation = findViewById(R.id.locationDisplay);
         electricityPriceDisplay = findViewById(R.id.electricityPrice);
@@ -112,7 +115,6 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
-        //Bundle extras = getIntent().getExtras();
         CalendarUtils.selectedDate = LocalDate.now();
         activity = this;
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
@@ -123,7 +125,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         firebaseRecyclerView.setHasFixedSize(true);
         firebaseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         accountVM.getCurrentAccount();
-
+/*
         MeowBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
 
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.rain_v1));
@@ -152,6 +154,8 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             }
         });
 
+
+ */
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,11 +204,15 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        graphButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent();
                 intent.setClass(v.getContext(),GraphActivity.class);
+                Bundle args = new Bundle();
+                args.putSerializable("List",plantsInCurrentDay);
+                intent.putExtra("BUNDLE",args);
                 startActivity(intent);
             }
         });
@@ -287,8 +295,8 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                     protected void onBindViewHolder(@NonNull @NotNull ViewHolderPlants holder, int position, @NonNull @NotNull Plant model) {
                         if((LocalDate.parse(model.getStartDate()).isBefore(dateToCompare)
                         || LocalDate.parse(model.getStartDate()).isEqual(dateToCompare))
-                                &&LocalDate.parse(model.getHarvestDate()).isAfter(dateToCompare)) {
-
+                                &&LocalDate.parse(model.getHarvestDate()).isAfter(dateToCompare)
+                                &&isItWateringDay(LocalDate.parse(model.getStartDate()),dateToCompare,model.getWateringFrequency())) {
                             holder.setItem(activity, model.getStartDate(), model.getWateringFrequency(),
                                     model.getTime(), model.getWaterPerYards(), model.getAmountOfLand(),
                                     model.getHarvestDate(), model.getPlantName());
@@ -300,8 +308,6 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                                     if(model.getPlantName()==plant.getPlantName()){
                                         double singlePlantuse = plant.getAmountOfLand()*plant.getWaterPerYards();
                                         waterUse +=singlePlantuse;
-                                        System.out.println("Adding watter :"+singlePlantuse);
-                                        System.out.println("Adding watter :"+model.getPlantName());
                                     }
                                 }
                                 dailyWaterUsage.setText(String.valueOf(waterUse)+" L");
@@ -310,6 +316,26 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                         }else{
                             holder.destroy();
                         }
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(!holder.clicked){
+                                    holder.itemView.setBackgroundColor(0xFF00FF00);
+                                    holder.clicked = true;
+                                }
+                            }
+                        });
+                        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                Intent intent = new Intent();
+                                intent.setClass(getApplicationContext(),RemoveActivity.class);
+                                intent.putExtra("username", acc.getUsername());
+                                intent.putExtra("plantName", model.getPlantName());
+                                startActivity(intent);
+                                return false;
+                            }
+                        });
                     }
                     @NonNull
                     @NotNull
@@ -405,6 +431,24 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    public boolean isItWateringDay(LocalDate start, LocalDate current, int frequency){
+    boolean result;
+        Instant startIn = start.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        long startMilli = startIn.toEpochMilli();
+        Instant currentIn = current.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        long currentMilli = currentIn.toEpochMilli();
+        long periodToCheck = currentMilli - startMilli;
+        long amountOfDays = frequency * 86400000;
+
+        if(periodToCheck % amountOfDays == 0 || currentMilli == startMilli){
+            result = true;
+        }else{
+            result= false;
+        }
+
+    return result;
     }
 
 

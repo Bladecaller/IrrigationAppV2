@@ -12,10 +12,12 @@ import com.example.sep4_android.R;
 import org.jetbrains.annotations.NotNull;
 
 public class ViewHolderPlants extends RecyclerView.ViewHolder {
-    TextView timeDis,nameDis;
+    public TextView timeDis,nameDis;
+    public boolean clicked;
 
     public ViewHolderPlants(@NonNull @NotNull View itemView) {
         super(itemView);
+        clicked = false;
     }
 
     public void setItem(Activity activity, String startDate, int wateringFrequency, String time, double waterPerYards,
