@@ -582,48 +582,50 @@ public class PrecipitationRepo {
             double actualValue = 0.0;
             @Override
             public void onResponse (Call <Root> call, Response<Root> response){
-                if(!response.body().features.isEmpty()){
-                    actualValue=response.body().features.get(0).properties.value;
-                    if (actualValue>=100.0 && actualValue<=105.0 || actualValue>=0.0 && actualValue<=5.0){
-                        convertedValue = "Dissolving Clouds";
+                if (response.body() != null) {
+                    if(!response.body().features.isEmpty()){
+                        actualValue=response.body().features.get(0).properties.value;
+                        if (actualValue>=100.0 && actualValue<=105.0 || actualValue>=0.0 && actualValue<=5.0){
+                            convertedValue = "Dissolving Clouds";
+                        }
+                        if (actualValue>=106.0 && actualValue<=110.0 || actualValue>=6.0 && actualValue<=10.0){
+                            convertedValue = "Mist";
+                        }
+                        if (actualValue>=111.0 && actualValue<=119.0 || actualValue>=11.0 && actualValue<=19.0){
+                            convertedValue = "Small Precipitation";
+                        }
+                        if (actualValue>=120.0 && actualValue<=129.0 || actualValue>=20.0 && actualValue<=29.0){
+                            convertedValue = "Snow";
+                        }
+                        if (actualValue>=130.0 && actualValue<=135.0 || actualValue>=30.0 && actualValue<=35.0){
+                            convertedValue ="Duststorm/Sandstorm";
+                        }
+                        if (actualValue>=136.0 && actualValue<=139.0 || actualValue>=36.0 && actualValue<=39.0){
+                            convertedValue = "Drifting snow";
+                        }
+                        if (actualValue>=140.0 && actualValue<=149.0 || actualValue>=40.0 && actualValue<=49.0){
+                            convertedValue = "Fog";
+                        }
+                        if (actualValue>=150.0 && actualValue<=159.0 || actualValue>=50.0 && actualValue<=59.0){
+                            convertedValue = "Drizzle";
+                        }
+                        if (actualValue>=160.0 && actualValue<=169.0 || actualValue>=60.0 && actualValue<=69.0){
+                            convertedValue = "Rain";
+                        }
+                        if (actualValue>=170.0 && actualValue<=179.0 || actualValue>=70.0 && actualValue<=79.0){
+                            convertedValue = "Solid Precipitation";
+                        }
+                        if (actualValue>=180.0 && actualValue<=193.0 || actualValue>=80.0 && actualValue<=93.0){
+                            convertedValue = "Rain Shower";
+                        }
+                        if (actualValue>=194.0 && actualValue<=199.0 || actualValue>=94.0 && actualValue<=99.0){
+                            convertedValue = "Thunderstorm";
+                        }
+                        Precipitation prep = new Precipitation(0,convertedValue);
+                        insert(prep);
+                    }else{
+                        insert(new Precipitation(0,"Unavailable"));
                     }
-                    if (actualValue>=106.0 && actualValue<=110.0 || actualValue>=6.0 && actualValue<=10.0){
-                        convertedValue = "Mist";
-                    }
-                    if (actualValue>=111.0 && actualValue<=119.0 || actualValue>=11.0 && actualValue<=19.0){
-                        convertedValue = "Small Precipitation";
-                    }
-                    if (actualValue>=120.0 && actualValue<=129.0 || actualValue>=20.0 && actualValue<=29.0){
-                        convertedValue = "Snow";
-                    }
-                    if (actualValue>=130.0 && actualValue<=135.0 || actualValue>=30.0 && actualValue<=35.0){
-                        convertedValue ="Duststorm/Sandstorm";
-                    }
-                    if (actualValue>=136.0 && actualValue<=139.0 || actualValue>=36.0 && actualValue<=39.0){
-                        convertedValue = "Drifting snow";
-                    }
-                    if (actualValue>=140.0 && actualValue<=149.0 || actualValue>=40.0 && actualValue<=49.0){
-                        convertedValue = "Fog";
-                    }
-                    if (actualValue>=150.0 && actualValue<=159.0 || actualValue>=50.0 && actualValue<=59.0){
-                        convertedValue = "Drizzle";
-                    }
-                    if (actualValue>=160.0 && actualValue<=169.0 || actualValue>=60.0 && actualValue<=69.0){
-                        convertedValue = "Rain";
-                    }
-                    if (actualValue>=170.0 && actualValue<=179.0 || actualValue>=70.0 && actualValue<=79.0){
-                        convertedValue = "Solid Precipitation";
-                    }
-                    if (actualValue>=180.0 && actualValue<=193.0 || actualValue>=80.0 && actualValue<=93.0){
-                        convertedValue = "Rain Shower";
-                    }
-                    if (actualValue>=194.0 && actualValue<=199.0 || actualValue>=94.0 && actualValue<=99.0){
-                        convertedValue = "Thunderstorm";
-                    }
-                    Precipitation prep = new Precipitation(0,convertedValue);
-                    insert(prep);
-                }else{
-                    insert(new Precipitation(0,"Unavailable"));
                 }
             }
             @Override

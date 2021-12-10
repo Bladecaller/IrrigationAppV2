@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -99,23 +100,27 @@ public class RegisterActivity extends AppCompatActivity {
 
                     if (!isEmail(email)) {
                         runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Email is not valid", Toast.LENGTH_LONG).show());
-                        throw new IOException("Email is not validdd");
+                        throw new IOException("Email is not valid");
                     }
                     if (isEmpty(username)) {
                         runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Enter username", Toast.LENGTH_LONG).show());
-                        throw new IOException("username is not validdd");
+                        throw new IOException("username is not valid");
                     }
                     if (isEmpty(password)) {
                         runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show());
-                        throw new IOException("password is not validdd");
+                        throw new IOException("password is not valid");
                     }
                     if (con == null) {
                         z = "Check Your Internet Connection";
-                        throw new IOException("Email is not validdd");
+                        throw new IOException("Email is not valid");
                     } else {
-                        Statement statement = con.createStatement();
-                        String sql = "INSERT INTO Users (email,username,password) VALUES ('" + email.getText() + "','" + username.getText() + "','" + password.getText() + "')";
-                        statement.executeUpdate(sql);
+
+                        String sql = "INSERT INTO Users (email,username,password) VALUES (?,?,?)";
+                        PreparedStatement statement = con.prepareStatement(sql);
+                        statement.setString(1,String.valueOf(email.getText()));
+                        statement.setString(2,String.valueOf(username.getText()));
+                        statement.setString(3,String.valueOf(password.getText()));
+                        statement.executeUpdate();
                     }
                 } catch (SQLException sqlException) {
                     isSuccess = false;

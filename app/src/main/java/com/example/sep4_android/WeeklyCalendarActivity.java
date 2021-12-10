@@ -125,12 +125,12 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         firebaseRecyclerView.setHasFixedSize(true);
         firebaseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         accountVM.getCurrentAccount();
-/*
+
         MeowBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
 
-        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.rain_v1));
-        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.small_precipitation));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.sauna_1));
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.icon_home_black));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_show_chart_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.temperature_v1));
 
 
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
@@ -153,8 +153,6 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
             }
         });
 
-
- */
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

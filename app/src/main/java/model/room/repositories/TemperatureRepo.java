@@ -580,10 +580,12 @@ public class TemperatureRepo {
         call.enqueue(new Callback<Root>(){
             @Override
             public void onResponse (Call <Root> call, Response<Root> response){
-                if(!response.body().features.isEmpty()){
-                    insert(new Temperature(0,response.body().features.get(0).properties.value));
-                }else{
-                    insert(new Temperature(0,9999.9));
+                if (response.body() != null) {
+                    if(!response.body().features.isEmpty()){
+                        insert(new Temperature(0,response.body().features.get(0).properties.value));
+                    }else{
+                        insert(new Temperature(0,9999.9));
+                    }
                 }
             }
             @Override

@@ -579,11 +579,13 @@ public class HumidityRepo {
         call.enqueue(new Callback<Root>(){
             @Override
             public void onResponse (Call <Root> call, Response<Root> response){
-                if(!response.body().features.isEmpty()){
-                    Humidity hum = new Humidity(0,response.body().features.get(0).properties.value);
-                    insert(hum);
-                }else{
-                    insert(new Humidity(0,9999));
+                if (response.body() != null) {
+                    if(!response.body().features.isEmpty()){
+                        Humidity hum = new Humidity(0,response.body().features.get(0).properties.value);
+                        insert(hum);
+                    }else{
+                        insert(new Humidity(0,9999));
+                    }
                 }
             }
             @Override

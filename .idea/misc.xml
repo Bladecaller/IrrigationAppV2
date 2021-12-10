@@ -13,7 +13,7 @@
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/drawable/selector.xml" value="0.23697916666666666" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout-v21/activity_test_dbs1.xml" value="0.2520833333333333" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout-v21/home_activity.xml" value="0.2520833333333333" />
-        <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/activity_add_plant.xml" value="0.2" />
+        <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/activity_add_plant.xml" value="0.33" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/activity_event_edit.xml" value="0.24270833333333333" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/activity_graph.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/activity_home.xml" value="0.25" />
@@ -38,6 +38,7 @@
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/plant_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/popup.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/random_fragment.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/recommendations_dialogue.xml" value="0.284375" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/report_fragment.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/settings_activity.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Cata Bastanu/Documents/GitHub/IrrigationAppV2/app/src/main/res/layout/test_db.xml" value="0.22" />

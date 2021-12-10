@@ -1,55 +1,65 @@
 package com.example.sep4_android;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
+import api.MyRetrofitRecommendations;
 import firebase_sql_helper_classes.Plant;
-import fragments.HomeFragment;
-import fragments.RandomFragment;
-import fragments.ReportFragment;
 import model.room.entity.Account;
+import model.room.entity.Recommendations;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import viewmodel.AccountRepoViewModel;
 
 public class AddPlantActivity extends AppCompatActivity {
-    public EditText plantName, amountOfLand, waterPerYard,
+    public AutoCompleteTextView plantName;
+    public EditText amountOfLand, waterPerYard,
             startDate, harvestAfterMonths, time, wateringFrequency;
-    public Button addDataBtn, datePickerButton, timePickerButton;
+    public Button addDataBtn, datePickerButton, timePickerButton, recommendationsButton;
     Activity activity;
     AccountRepoViewModel accountVM;
     Account acc;
     Toolbar toolbar;
+    Dialog dialog;
+    ArrayList<String> plantSuggestions;
+    ArrayAdapter<String> adapterSuggestions;
+    List<Recommendations> recommendationsList;
     private DatePickerDialog datePickerDialog;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
     private int hour, minute;
     String formattedTime = "";
-
+    private MyRetrofitRecommendations retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +76,23 @@ public class AddPlantActivity extends AppCompatActivity {
         datePickerButton = findViewById(R.id.datePickerButton);
         timePickerButton = findViewById(R.id.timePickerButton);
         datePickerButton.setText(getTodaysDate());
+        recommendationsButton= findViewById(R.id.recommendationsButton);
+
         //time = findViewById(R.id.timeText);
         toolbar = findViewById(R.id.my_toolbar);
-
         //   BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_new);
         //    bottomNav.setOnItemSelectedListener(navListener);
-
+        retrofit = new MyRetrofitRecommendations();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initDatePicker();
         wateringFrequency = findViewById(R.id.wateringFrequencyText);
         activity = this;
+        plantSuggestions = new ArrayList<>();
+        adapterSuggestions = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, plantSuggestions);
+        plantName.setAdapter(adapterSuggestions);
+
+    
 
         addDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,8 +111,8 @@ public class AddPlantActivity extends AppCompatActivity {
                             datePickerButton.getText().toString(),
                             Integer.parseInt(wateringFrequency.getText().toString()),
                             timePickerButton.getText().toString(),
-                            Integer.parseInt(waterPerYard.getText().toString()),
-                            Integer.parseInt(amountOfLand.getText().toString()),
+                            Double.parseDouble(waterPerYard.getText().toString()),
+                            Double.parseDouble(amountOfLand.getText().toString()),
                             harvestAfterMonths.getText().toString(),
                             plantName.getText().toString());
 
@@ -123,7 +139,6 @@ public class AddPlantActivity extends AppCompatActivity {
         });
 
 
-
 /*
         }
 
@@ -148,7 +163,57 @@ public class AddPlantActivity extends AppCompatActivity {
                 };
 
  */
+
+        Call<List<Recommendations>> call = retrofit.api.getRecommendations("plant");
+        call.enqueue(new Callback<List<Recommendations>>() {
+            @Override
+            public void onResponse(Call<List<Recommendations>> call, Response<List<Recommendations>> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println("error: " + response.code());
+                }
+                        recommendationsList = response.body();
+                if (recommendationsList != null) {
+                    for (Recommendations recommendations : recommendationsList)
+                    {
+                        plantSuggestions.add(recommendations.getName());
+                    }
+                }
+                System.out.println(plantSuggestions);
+            }
+
+            @Override
+            public void onFailure(Call<List<Recommendations>> call, Throwable t) {
+                System.out.println(t.getMessage() + "  ERROR HERE NO LIST");
+            }
+        });
+
+        recommendationsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int filteredFrequency=0;
+                double filteredWaterAmount=0;
+                double filteredYards=0;
+                String found = "We don't have data on that plant yet";
+                for (int i=0;i<recommendationsList.size();i++)
+                {
+                    if (plantName.getText().toString().equals(recommendationsList.get(i).getName()))
+                    {
+                        filteredFrequency = recommendationsList.get(i).getWaterFrequency();
+                        filteredWaterAmount = recommendationsList.get(i).getWaterPerYard();
+                        filteredYards = recommendationsList.get(i).getYards();
+                        found = "You can change the values accordingly";
+                        wateringFrequency.setText(String.valueOf(filteredFrequency));
+                        amountOfLand.setText(String.valueOf(filteredYards));
+                        waterPerYard.setText(String.valueOf(filteredWaterAmount));
+                    }
+                }
+                    Toast.makeText(AddPlantActivity.this,found, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
+
+
 
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();

@@ -2,6 +2,9 @@ package api;
 
 
 
+import java.util.List;
+
+import model.room.entity.Recommendations;
 import model.room.entity.apiDataModelClimate.Root;
 import model.room.entity.apiDataModelElectricity.RootElectricity;
 import retrofit2.Call;
@@ -16,4 +19,6 @@ public interface InterfaceAPI {
     Call<Root> getClimate(@Url String url);
     @GET
     Call<RootElectricity> getElectricity(@Url String url);
+    @GET
+    Call<List<Recommendations>> getRecommendations(@Url String url);
 }

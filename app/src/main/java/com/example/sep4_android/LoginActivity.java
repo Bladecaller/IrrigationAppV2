@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -151,18 +152,17 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else {
                         try {
-                            String sql = "SELECT * FROM Users WHERE username = '" + username.getText() + "' AND password = '" + password.getText() + "' ";
-                            Statement stmt = con.createStatement();
-                            ResultSet rs = stmt.executeQuery(sql);
+                            String sql = "SELECT * FROM Users WHERE username = ? AND password = ?";
+                            PreparedStatement stmt = con.prepareStatement(sql);
+                            stmt.setString(1,String.valueOf(username.getText()));
+                            stmt.setString(2,String.valueOf(password.getText()));
+                            ResultSet rs = stmt.executeQuery();
 
                             if (rs.next()) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
-
-
-
                                         Intent i = new Intent(getApplicationContext(), WeeklyCalendarActivity.class);
                                         //i.putExtra("username", String.valueOf(username.getText()));
                                         accountVM.addAccount(new Account(9999,String.valueOf(username.getText())));
