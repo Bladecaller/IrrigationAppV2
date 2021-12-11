@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,11 +47,18 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import firebase_sql_helper_classes.Plant;
 import fragments.HomeFragment;
@@ -125,6 +136,12 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
         firebaseRecyclerView.setHasFixedSize(true);
         firebaseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         accountVM.getCurrentAccount();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("irrigation","irrigation", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         MeowBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
 
@@ -257,6 +274,29 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                 }
             }
         });
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                DateFormat formatter = new SimpleDateFormat("HH:mm");
+                if(!plantsInCurrentDay.isEmpty()){
+                    for (Plant plant:plantsInCurrentDay
+                         ) {
+                        System.out.println(LocalTime.now());
+                        System.out.println(LocalTime.parse(plant.getTime()));
+                        if(LocalTime.now().isAfter(LocalTime.parse(plant.getTime())) && !plant.isWatered()){
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(WeeklyCalendarActivity.this,"irrigation");
+                            builder.setContentTitle("Irrigation notification");
+                            builder.setSmallIcon(R.drawable.humidity_icon);
+                            builder.setContentText("It is time to water "+ plant.getPlantName());
+
+                            NotificationManagerCompat manager = NotificationManagerCompat.from(WeeklyCalendarActivity.this);
+                            manager.notify(1,builder.build());
+                            System.out.println("NOTIFICATION"+ LocalDateTime.now());
+                        }
+                    }
+                }
+            }
+        }, 0, 10000);//put here time 1000 milliseconds=1 second
         }
 
     private void replace(Fragment fragment) {
@@ -313,10 +353,17 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Calenda
                         }else{
                             holder.destroy();
                         }
+
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if(!holder.clicked){
+                                    for (Plant plant :plantsInCurrentDay
+                                         ) {
+                                        if(plant==model){
+                                            plant.setWatered(true);
+                                        }
+                                    }
                                     holder.itemView.setBackgroundColor(0xFF00FF00);
                                     holder.clicked = true;
                                 }

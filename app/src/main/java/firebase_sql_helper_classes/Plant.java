@@ -3,7 +3,7 @@ package firebase_sql_helper_classes;
 
 import java.io.Serializable;
 
-public class Plant implements Serializable {
+public class Plant implements Serializable,Comparable {
     String startDate;
     String plantName;
     int wateringFrequency;
@@ -11,6 +11,7 @@ public class Plant implements Serializable {
     double waterPerYards;
     double amountOfLand;
     String harvestDate;
+    boolean watered;
 
 
     public Plant(String startDate,int wateringFrequency, String time, double waterPerYards,
@@ -22,6 +23,7 @@ public class Plant implements Serializable {
         this.waterPerYards = waterPerYards;
         this.amountOfLand = amountOfLand;
         this.harvestDate = harevestDate;
+        this.watered = false;
     }
 
     public Plant(){
@@ -82,6 +84,22 @@ public class Plant implements Serializable {
 
     public void setHarvestDate(String harvestDate) {
         this.harvestDate = harvestDate;
+    }
+
+    public boolean isWatered() {
+        return watered;
+    }
+
+    public void setWatered(boolean watered) {
+        this.watered = watered;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Plant e = (Plant)o;
+        float timeInt = Float.parseFloat((e.getTime().replace(":",".")));
+        float result = Float.parseFloat((this.getTime().replace(":","."))) - timeInt;
+        return (int) result;
     }
 }
 

@@ -11,6 +11,8 @@ import com.example.sep4_android.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import firebase_sql_helper_classes.Plant;
+
 public class ViewHolderPlants extends RecyclerView.ViewHolder {
     public TextView timeDis,nameDis;
     public boolean clicked;
@@ -24,7 +26,6 @@ public class ViewHolderPlants extends RecyclerView.ViewHolder {
                         double amountOfLand, String harvestDate, String plantName){
         timeDis = itemView.findViewById(R.id.time_item_tv);
         nameDis = itemView.findViewById(R.id.name_item_tv);
-
         timeDis.setText(time);
         nameDis.setText(plantName);
 

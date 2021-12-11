@@ -16,6 +16,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import firebase_sql_helper_classes.Plant;
 
@@ -35,7 +36,7 @@ public class GraphActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
-        ArrayList<Plant> object = (ArrayList<Plant>) args.getSerializable("List");
+        ArrayList<Plant> list = (ArrayList<Plant>) args.getSerializable("List");
 
     mChart = findViewById(R.id.graphData);
 
@@ -47,14 +48,20 @@ public class GraphActivity extends AppCompatActivity {
     mChart.setScaleEnabled(false);
 
         ArrayList<Entry> yValues = new ArrayList<>();
+        yValues.add(new Entry(0, 0));
+        Collections.sort(list);
+        for (Plant plant: list
+        ) {
+            float timeFloat = Float.parseFloat(plant.getTime().replace(":","."));
+            float waterFloat = (float)(plant.getWaterPerYards()*plant.getAmountOfLand());
+            yValues.add(new Entry(timeFloat,waterFloat));
+            System.out.println("TIME : " + timeFloat);
+            System.out.println("WATER : " + (float)(plant.getWaterPerYards()*plant.getAmountOfLand()));
+        }
 
-        yValues.add(new Entry(0, 60f));
-        yValues.add(new Entry(1, 20f));
-        yValues.add(new Entry(2, 30f));
-        yValues.add(new Entry(3, 90f));
-        yValues.add(new Entry(4, 10f));
-        yValues.add(new Entry(5, 100f));
-        LineDataSet test1 = new LineDataSet(yValues, "FIRST SET");
+
+        yValues.add(new Entry(24, 0));
+        LineDataSet test1 = new LineDataSet(yValues, "Daily water usage");
 
         test1.setFillAlpha(110);
         test1.setColor(Color.BLUE);
