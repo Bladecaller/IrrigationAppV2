@@ -1,4 +1,4 @@
-package firebase_sql_helper_classes;
+package model.non_room_classes;
 
 
 import java.io.Serializable;

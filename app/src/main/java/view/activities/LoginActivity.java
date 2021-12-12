@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -7,11 +7,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,13 +18,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import android.widget.Toast;
 
-import firebase_sql_helper_classes.ConnectionClass;
+import com.example.SEP7_IrrigationApp.R;
+
+import model.non_room_classes.ConnectionClass;
 import model.room.entity.Account;
 import viewmodel.AccountRepoViewModel;
+
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
-                                        Intent i = new Intent(getApplicationContext(), WeeklyCalendarActivity.class);
+                                        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                                         //i.putExtra("username", String.valueOf(username.getText()));
                                         accountVM.addAccount(new Account(9999,String.valueOf(username.getText())));
                                         startActivity(i);
@@ -174,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                                Intent intent = new Intent(LoginActivity.this, WeeklyCalendarActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();
 

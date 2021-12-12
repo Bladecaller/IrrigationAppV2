@@ -8,7 +8,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import model.room.entity.Climate;
 import model.room.entity.Humidity;
 
 @Dao

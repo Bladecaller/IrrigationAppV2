@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sep4_android">
+    package="com.example.SEP7_IrrigationApp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -16,26 +16,26 @@
         android:theme="@style/Theme.Design.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".GraphActivity"
-            android:parentActivityName=".WeeklyCalendarActivity"
+            android:name="view.activities.GraphActivity"
+            android:parentActivityName="view.activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name="view.activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".WeeklyCalendarActivity"
+            android:name="view.activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".RemoveActivity"
+            android:name="view.activities.RemoveActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="view.activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".AddPlantActivity"
-            android:parentActivityName=".WeeklyCalendarActivity"
+            android:name="view.activities.AddPlantActivity"
+            android:parentActivityName="view.activities.HomeActivity"
             android:exported="false" />
-        <activity android:name=".SplashscreenActivity">
+        <activity android:name="view.activities.InitialAnimationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,8 +43,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".WeeklyCalendarActivity" />
+            android:name="view.activities.SettingsActivity"
+            android:parentActivityName="view.activities.HomeActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

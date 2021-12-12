@@ -17,12 +17,9 @@ import org.junit.rules.TestRule;
 
 import java.util.List;
 
-import model.room.entity.Climate;
 import model.room.entity.Humidity;
 import model.room.entity.Precipitation;
 import model.room.entity.Temperature;
-import model.room.repositories.AccountRepo;
-import model.room.repositories.ClimateRepo;
 import model.room.repositories.HumidityRepo;
 import model.room.repositories.PrecipitationRepo;
 import model.room.repositories.TemperatureRepo;

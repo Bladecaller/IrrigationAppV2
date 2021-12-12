@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SplashscreenActivity extends AppCompatActivity {
+import com.example.SEP7_IrrigationApp.R;
+
+public class InitialAnimationActivity extends AppCompatActivity {
 
     private ImageView logoImage;
     private TextView logoText;
@@ -33,7 +35,7 @@ public class SplashscreenActivity extends AppCompatActivity {
     logoText.setAnimation(bottomAnim);
 
     new Handler().postDelayed((Runnable) () -> {
-        Intent intent = new Intent(SplashscreenActivity.this,LoginActivity.class);
+        Intent intent = new Intent(InitialAnimationActivity.this,LoginActivity.class);
         startActivity(intent);
         finish();
     },SPLASH_SCREEN);

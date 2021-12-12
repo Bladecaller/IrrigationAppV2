@@ -1,4 +1,4 @@
-package model.room.entity;
+package model.non_room_classes;
 
 import java.io.Serializable;
 

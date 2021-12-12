@@ -1,4 +1,4 @@
-package firebase_sql_helper_classes;
+package model.non_room_classes;
 
 public class ConnectionClass {
     public static String ip =""; // SQL Server IP Address

@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package view.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,11 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.SEP7_IrrigationApp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import model.room.entity.Account;
 import viewmodel.AccountRepoViewModel;
@@ -78,16 +78,6 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterPrice = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListPrice);
         arrayAdapterPrice.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPrice.setAdapter(arrayAdapterPrice);
-/*
-        spinnerLum = findViewById(R.id.spinnerLuminocity);
-        ArrayList<String> arrayListLum = new ArrayList<>();
-        arrayListLum.add("station1");
-        arrayListLum.add("station2");
-        ArrayAdapter<String> arrayAdapterLum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListLum);
-        arrayAdapterLum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLum.setAdapter(arrayAdapterLum);
-
- */
 
         accountVM.getCurrentAccount();
 
@@ -129,7 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(v.getContext(),WeeklyCalendarActivity.class);
+                intent.setClass(v.getContext(), HomeActivity.class);
                 startActivity(intent);
             }
         });

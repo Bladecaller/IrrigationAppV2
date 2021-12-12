@@ -4,7 +4,7 @@ package api;
 
 import java.util.List;
 
-import model.room.entity.Recommendations;
+import model.non_room_classes.Recommendations;
 import model.room.entity.apiDataModelClimate.Root;
 import model.room.entity.apiDataModelElectricity.RootElectricity;
 import retrofit2.Call;

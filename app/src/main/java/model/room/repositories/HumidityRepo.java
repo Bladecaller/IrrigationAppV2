@@ -7,9 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import api.MyRetrofit;
-import model.room.dao.ClimateDao;
 import model.room.dao.HumidityDao;
-import model.room.entity.Climate;
 import model.room.entity.Humidity;
 import model.room.entity.apiDataModelClimate.Root;
 import model.room.roomdatabase.MyRoomDatabase;

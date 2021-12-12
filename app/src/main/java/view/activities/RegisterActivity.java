@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,11 +21,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import android.widget.Toast;
 
-import firebase_sql_helper_classes.ConnectionClass;
+import com.example.SEP7_IrrigationApp.R;
+
+import model.non_room_classes.ConnectionClass;
 
 public class RegisterActivity extends AppCompatActivity {
 

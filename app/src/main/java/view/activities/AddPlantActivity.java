@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,12 +10,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -24,6 +21,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.SEP7_IrrigationApp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,9 +32,11 @@ import java.util.List;
 import java.util.Locale;
 
 import api.MyRetrofitRecommendations;
-import firebase_sql_helper_classes.Plant;
+import model.non_room_classes.Plant;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import model.room.entity.Account;
-import model.room.entity.Recommendations;
+import model.non_room_classes.Recommendations;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -90,7 +91,46 @@ public class AddPlantActivity extends AppCompatActivity {
         activity = this;
         plantSuggestions = new ArrayList<>();
         adapterSuggestions = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, plantSuggestions);
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        ArrayList<Plant> list = (ArrayList<Plant>) args.getSerializable("List");
         plantName.setAdapter(adapterSuggestions);
+
+        MeowBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
+
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.icon_home_black));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_show_chart_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.temperature_v1));
+
+
+        bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                Intent intent = new Intent();
+                Bundle args = new Bundle();
+                switch(model.getId()){
+                    case 1:
+                        intent.setClass(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
+                        break;
+
+                    case 2:
+                        intent.setClass(getApplicationContext(),GraphActivity.class);
+                        args.putSerializable("List",list);
+                        intent.putExtra("BUNDLE",args);
+                        startActivity(intent);
+                        break;
+
+                    case 3:
+                        intent.setClass(getApplicationContext(),AddPlantActivity.class);
+                        args.putSerializable("List",list);
+                        intent.putExtra("BUNDLE",args);
+                        startActivity(intent);
+                        break;
+                }
+                return null;
+            }
+        });
 
     
 
@@ -121,11 +161,13 @@ public class AddPlantActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent();
-                    intent.setClass(view.getContext(), WeeklyCalendarActivity.class);
+                    intent.setClass(view.getContext(), HomeActivity.class);
                     startActivity(intent);
                 }
             }
         });
+
+
         accountVM.getCurrentAccount().observe(this, new Observer<Account>() {
             @Override
             public void onChanged(Account account) {
@@ -186,6 +228,7 @@ public class AddPlantActivity extends AppCompatActivity {
                 System.out.println(t.getMessage() + "  ERROR HERE NO LIST");
             }
         });
+
 
         recommendationsButton.setOnClickListener(new View.OnClickListener() {
             @Override

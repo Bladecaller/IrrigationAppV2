@@ -1,4 +1,4 @@
-package com.example.sep4_android.ViewHolders;
+package view.viewholders;
 
 import android.app.Activity;
 import android.view.View;
@@ -7,11 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sep4_android.R;
+import com.example.SEP7_IrrigationApp.R;
 
 import org.jetbrains.annotations.NotNull;
-
-import firebase_sql_helper_classes.Plant;
 
 public class ViewHolderPlants extends RecyclerView.ViewHolder {
     public TextView timeDis,nameDis;

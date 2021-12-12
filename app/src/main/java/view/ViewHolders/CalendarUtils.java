@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package view.ViewHolders;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

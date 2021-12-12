@@ -1,4 +1,4 @@
-package com.example.sep4_android;
+package view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,26 +7,27 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.SEP7_IrrigationApp.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import firebase_sql_helper_classes.Plant;
+import model.non_room_classes.Plant;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class GraphActivity extends AppCompatActivity {
 
     private static final String Tag = "GraphActivity";
-
     private LineChart mChart;
-
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +40,41 @@ public class GraphActivity extends AppCompatActivity {
         ArrayList<Plant> list = (ArrayList<Plant>) args.getSerializable("List");
 
     mChart = findViewById(R.id.graphData);
+        MeowBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
+
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.icon_home_black));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_show_chart_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.temperature_v1));
 
 
-    //mChart.setOnChartGestureListener(GraphActivity.this);
-    //mChart.setOnChartValueSelectedListener(GraphActivity.this);
+        bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                Intent intent = new Intent();
+                Bundle args = new Bundle();
+                switch(model.getId()){
+                    case 1:
+                        intent.setClass(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
+                        break;
+
+                    case 2:
+                        intent.setClass(getApplicationContext(),GraphActivity.class);
+                        args.putSerializable("List",list);
+                        intent.putExtra("BUNDLE",args);
+                        startActivity(intent);
+                        break;
+
+                    case 3:
+                        intent.setClass(getApplicationContext(),AddPlantActivity.class);
+                        args.putSerializable("List",list);
+                        intent.putExtra("BUNDLE",args);
+                        startActivity(intent);
+                        break;
+                }
+                return null;
+            }
+        });
 
     mChart.setDragEnabled(true);
     mChart.setScaleEnabled(false);
