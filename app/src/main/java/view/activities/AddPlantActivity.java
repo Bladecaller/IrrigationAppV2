@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,7 +47,7 @@ public class AddPlantActivity extends AppCompatActivity {
     public AutoCompleteTextView plantName;
     public EditText amountOfLand, waterPerYard,
             startDate, harvestAfterMonths, time, wateringFrequency;
-    public Button addDataBtn, datePickerButton, timePickerButton, recommendationsButton;
+    public Button addDataBtn, datePickerButton, datePickerButtonHarvest, timePickerButton, recommendationsButton;
     Activity activity;
     AccountRepoViewModel accountVM;
     Account acc;
@@ -56,6 +57,7 @@ public class AddPlantActivity extends AppCompatActivity {
     ArrayAdapter<String> adapterSuggestions;
     List<Recommendations> recommendationsList;
     private DatePickerDialog datePickerDialog;
+    private DatePickerDialog datePickerDialogHarvest;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
     private int hour, minute;
@@ -73,10 +75,12 @@ public class AddPlantActivity extends AppCompatActivity {
         amountOfLand = findViewById(R.id.amountOfLandText);
         waterPerYard = findViewById(R.id.waterPerYardsText);
         //startDate = findViewById(R.id.startDateText);
-        harvestAfterMonths = findViewById(R.id.harvestDate);
+       // harvestAfterMonths = findViewById(R.id.harvestDate);
         datePickerButton = findViewById(R.id.datePickerButton);
+        datePickerButtonHarvest = findViewById(R.id.datePickerButtonHarvest);
         timePickerButton = findViewById(R.id.timePickerButton);
         datePickerButton.setText(getTodaysDate());
+        datePickerButtonHarvest.setText(getTomorrowsdate());
         recommendationsButton= findViewById(R.id.recommendationsButton);
 
         //time = findViewById(R.id.timeText);
@@ -87,6 +91,7 @@ public class AddPlantActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initDatePicker();
+        initDatePickerHarvest();
         wateringFrequency = findViewById(R.id.wateringFrequencyText);
         activity = this;
         plantSuggestions = new ArrayList<>();
@@ -100,7 +105,7 @@ public class AddPlantActivity extends AppCompatActivity {
 
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.icon_home_black));
         bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_show_chart_24));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.temperature_v1));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_local_florist_24));
 
 
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
@@ -143,7 +148,8 @@ public class AddPlantActivity extends AppCompatActivity {
                         waterPerYard.getText().toString().matches("") ||
                         amountOfLand.getText().toString().matches("") ||
                         harvestAfterMonths.getText().toString().matches("") ||
-                        plantName.getText().toString().matches("")) {
+                        plantName.getText().toString().matches(""))
+                {
                     Toast.makeText(activity, "You have empty fields",
                             Toast.LENGTH_LONG).show();
                 } else {
@@ -153,7 +159,7 @@ public class AddPlantActivity extends AppCompatActivity {
                             timePickerButton.getText().toString(),
                             Double.parseDouble(waterPerYard.getText().toString()),
                             Double.parseDouble(amountOfLand.getText().toString()),
-                            harvestAfterMonths.getText().toString(),
+                            datePickerButtonHarvest.getText().toString(),
                             plantName.getText().toString());
 
                     reference.child(plant.getPlantName()).setValue(plant);
@@ -266,6 +272,15 @@ public class AddPlantActivity extends AppCompatActivity {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         return makeDateString(year, month, day);
     }
+    private String getTomorrowsdate() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        day = day + 1;
+        return makeDateString(year, month, day);
+    }
 
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -282,11 +297,33 @@ public class AddPlantActivity extends AppCompatActivity {
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
-
+        long currentTime = new Date().getTime();
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(currentTime);
+    }
+    private void initDatePickerHarvest() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = makeDateString(year, month, day);
+                datePickerButtonHarvest.setText(date);
+            }
+        };
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        int style = AlertDialog.THEME_HOLO_DARK;
+        long currentTime = new Date().getTime();
+        datePickerDialogHarvest = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+        datePickerDialogHarvest.getDatePicker().setMinDate(currentTime);
     }
     public void openDatePicker(View view) {
         datePickerDialog.show();
+    }
+    public void openDatePickerHarvest(View view) {datePickerDialogHarvest.show();
     }
 
     private String makeDateString(int year, int month, int day) {
@@ -334,6 +371,8 @@ public class AddPlantActivity extends AppCompatActivity {
         return formattedTime = sHour + ":" + sMinute;
 
     }
+
+
 }
 
 

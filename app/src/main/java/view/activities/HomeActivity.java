@@ -126,7 +126,7 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
 
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.icon_home_black));
         bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_show_chart_24));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.temperature_v1));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_local_florist_24));
 
 
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {

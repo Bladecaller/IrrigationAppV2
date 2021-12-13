@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/darker_gray"
+    android:background="#17578A"
     tools:context="view.activities.AddPlantActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -34,7 +34,6 @@
         android:background="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="Watering frequency"
         android:inputType="text"
         android:textColor="#876C6C"
         android:textColorHint="#876C6C"
@@ -83,6 +82,22 @@
         app:layout_constraintVertical_bias="0.114" />
 
     <TextView
+        android:layout_width="158dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/allerta"
+        android:text="(Waterings per week)"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23" />
+
+    <TextView
         android:layout_width="124dp"
         android:layout_height="44dp"
         android:fontFamily="@font/allerta"
@@ -97,26 +112,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.094" />
-    <EditText
-        android:id="@+id/harvestDate"
-        style="@style/TextInput"
-        android:layout_width="195dp"
+    <Button
+        android:id="@+id/datePickerButton"
+        style="?spinnerStyle"
+        android:layout_width="179dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
+        android:layout_weight="0"
         android:background="@android:color/white"
-        android:ems="10"
         android:fontFamily="@font/allerta"
-        android:hint="end YYYY-MM-DD"
-        android:inputType="text"
-        android:minHeight="48dp"
+        android:onClick="openDatePicker"
+        android:text="JAN 01 2021"
+        android:textAlignment="center"
         android:textColor="#876C6C"
-        android:textColorHint="#876C6C"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePickerButton"
-        app:layout_constraintVertical_bias="0.306" />
+        app:layout_constraintTop_toBottomOf="@+id/amountOfLandText"
+        app:layout_constraintVertical_bias="0.535" />
 
     <TextView
         android:layout_width="209dp"
@@ -164,11 +180,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.283" />
+
+    <TextView
+        android:layout_width="112dp"
+        android:layout_height="36dp"
+        android:fontFamily="@font/allerta"
+        android:text="Litres"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.855"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.346" />
+
+    <TextView
+        android:layout_width="112dp"
+        android:layout_height="36dp"
+        android:fontFamily="@font/allerta"
+        android:text="Yards"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.490" />
+
     <EditText
         android:id="@+id/amountOfLandText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textAlignment="center"
+        style="@style/TextInput"
+        android:textStyle="bold"
         android:background="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/allerta"
@@ -185,7 +237,7 @@
         app:layout_constraintVertical_bias="0.127" />
 
     <Button
-        android:id="@+id/datePickerButton"
+        android:id="@+id/datePickerButtonHarvest"
         style="?spinnerStyle"
         android:layout_width="179dp"
         android:layout_height="48dp"
@@ -193,7 +245,7 @@
         android:layout_weight="0"
         android:background="@android:color/white"
         android:fontFamily="@font/allerta"
-        android:onClick="openDatePicker"
+        android:onClick="openDatePickerHarvest"
         android:text="JAN 01 2021"
         android:textAlignment="center"
         android:textColor="#876C6C"
@@ -201,10 +253,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.974"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/amountOfLandText"
-        app:layout_constraintVertical_bias="0.535" />
+        app:layout_constraintVertical_bias="0.528" />
 
     <TextView
         android:layout_width="209dp"
@@ -291,7 +343,7 @@
         app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.873" />
+        app:layout_constraintVertical_bias="0.893" />
 
     <Button
         android:id="@+id/recommendationsButton"

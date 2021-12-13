@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(LoginActivity.this, "Check email or password", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "Check username or password", Toast.LENGTH_LONG).show();
                                     }
                                 });
 
