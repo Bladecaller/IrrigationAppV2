@@ -147,7 +147,7 @@ public class AddPlantActivity extends AppCompatActivity {
                         timePickerButton.getText().toString().matches("") ||
                         waterPerYard.getText().toString().matches("") ||
                         amountOfLand.getText().toString().matches("") ||
-                        harvestAfterMonths.getText().toString().matches("") ||
+                        datePickerButtonHarvest.getText().toString().matches("") ||
                         plantName.getText().toString().matches(""))
                 {
                     Toast.makeText(activity, "You have empty fields",
@@ -185,32 +185,6 @@ public class AddPlantActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-/*
-        }
-
-        private NavigationBarView.OnItemSelectedListener navListener =
-                item -> {
-                    Fragment selectedFragment = null;
-
-                    switch (item.getItemId())
-                    {
-                        case R.id.bottom_nav_home:
-                            selectedFragment = new HomeFragment();
-                            break;
-                        case R.id.bottom_nav_report:
-                            selectedFragment = new ReportFragment();
-                            break;
-                        case R.id.bottom_nav_random:
-                            selectedFragment = new RandomFragment();
-                            break;
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-                    return true;
-                };
-
- */
 
         Call<List<Recommendations>> call = retrofit.api.getRecommendations("plant");
         call.enqueue(new Callback<List<Recommendations>>() {
@@ -307,7 +281,10 @@ public class AddPlantActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = makeDateString(year, month, day);
+                System.out.println(date);
                 datePickerButtonHarvest.setText(date);
+                String random = datePickerButtonHarvest.getText().toString();
+                System.out.println(random);
             }
         };
         Calendar cal = Calendar.getInstance();
@@ -327,7 +304,11 @@ public class AddPlantActivity extends AppCompatActivity {
     }
 
     private String makeDateString(int year, int month, int day) {
-        if (day < 10)
+        if (day < 10 && month < 10)
+            return year + "-0" + month + "-0" + day;
+        if (month < 10)
+            return year + "-0" + month + "-" + day;
+        if (day < 10 )
             return year + "-" + month + "-0" + day;
         else
             return year + "-" + month + "-" + day;
