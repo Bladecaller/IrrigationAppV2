@@ -31,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+
+import model.non_room_classes.DialogueClass;
 import view.ViewHolders.CalendarAdapter;
 import view.ViewHolders.CalendarUtils;
 import com.example.SEP7_IrrigationApp.R;
@@ -70,7 +72,7 @@ import viewmodel.HumidityViewModel;
 import viewmodel.PrecipitationViewModel;
 import viewmodel.TemperatureViewModel;
 
-public class HomeActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
+public class HomeActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener, DialogueClass.DialogListener {
 
     private TextView monthYearText,currentUser, currentLocation;
     private ImageView precipitationImage;
@@ -346,11 +348,14 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
                         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
                             public boolean onLongClick(View v) {
-                                Intent intent = new Intent();
-                                intent.setClass(getApplicationContext(),RemoveActivity.class);
+                                Intent intent = getIntent();
                                 intent.putExtra("username", acc.getUsername());
                                 intent.putExtra("plantName", model.getPlantName());
-                                startActivity(intent);
+                                DialogueClass dialogue = new DialogueClass();
+                                dialogue.show((HomeActivity.this).getSupportFragmentManager(), "dialogue");
+
+
+
                                 return false;
                             }
                         });
@@ -405,6 +410,10 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
                 break;
         }
     }
+    public void openDialogue(){
+        DialogueClass dialogue = new DialogueClass();
+        dialogue.show(getSupportFragmentManager(), "dialogue");
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void previousWeekAction(View view) {
@@ -457,6 +466,7 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         super.onResume();
     }
 
+
     public boolean isItWateringDay(LocalDate start, LocalDate current, int frequency){
     boolean result;
         Instant startIn = start.atStartOfDay(ZoneId.systemDefault()).toInstant();
@@ -472,5 +482,15 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
             result= false;
         }
     return result;
+    }
+
+    @Override
+    public void onYesClicked() {
+        Bundle extras = getIntent().getExtras();
+        System.out.println("EXTRA VALUE "+extras.get("username").toString() + extras.get("plantName").toString());
+        rootNode = FirebaseDatabase.getInstance("https://bprcalendarinfo-default-rtdb.europe-west1.firebasedatabase.app/");
+        reference = rootNode.getReference().child("users").child(extras.get("username").toString()).child("plantsInfo");
+
+        reference.child(extras.get("plantName").toString()).removeValue();
     }
 }
