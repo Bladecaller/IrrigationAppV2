@@ -456,6 +456,7 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
             Intent intent = new Intent();
             intent.setClass(getApplicationContext(),SettingsActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

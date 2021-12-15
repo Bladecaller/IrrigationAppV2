@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
     EditText location;
     Spinner spinner,spinnerPrice,spinnerLum;
     Button buttonSet,buttonSetPrice,buttonSetLuminosity;
-    Button buttonBack;
+    Button buttonLogOut;
     Toolbar toolbar;
     private HumidityViewModel humidityViewModel;
     private TemperatureViewModel temperatureViewModel;
@@ -49,7 +49,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
         buttonSet = findViewById(R.id.location_button);
-        buttonBack = findViewById(R.id.backSettings);
         toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         precipitationViewModel = new ViewModelProvider(this).get(PrecipitationViewModel.class);
         accountVM = new ViewModelProvider(this).get(AccountRepoViewModel.class);
         buttonSetPrice = findViewById(R.id.price_button);
+        buttonLogOut = findViewById(R.id.logOut_button);
 
         spinner = findViewById(R.id.spinnerLocation);
         ArrayList<String> arrayListLocation = new ArrayList<>();
@@ -279,12 +279,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        buttonBack.setOnClickListener(new View.OnClickListener() {
+        buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(v.getContext(), HomeActivity.class);
+                intent.setClass(v.getContext(), LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

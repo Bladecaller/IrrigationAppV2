@@ -19,16 +19,16 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/backSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="back"
+        android:id="@+id/logOut_button"
+        android:layout_width="96dp"
+        android:layout_height="48dp"
+        android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.398" />
+        app:layout_constraintVertical_bias="0.433" />
 
     <Button
         android:id="@+id/location_button"
